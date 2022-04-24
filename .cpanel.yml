@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/karigf2c/public_html/
+    - /bin/cp * $DEPLOYPATH
