@@ -47,7 +47,7 @@ class Common {
     }
     
     public function response($response){
-        header('Content-type: application/json');
+        header('Content-type: application/json; charset=utf-8');
         echo json_encode($response);
         exit();
     }
