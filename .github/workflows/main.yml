@@ -17,4 +17,4 @@ jobs:
         server: ftp.karigarbazar.com
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}
-        local-dir: /api.karigarbazar.com/
+        local-dir: /public_html/api.karigarbazar.com/
