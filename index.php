@@ -1,1 +1,1 @@
-Shree Ganesh Ji oke
+Shree Ganesh
