@@ -7,7 +7,7 @@ class CategoryController extends CI_Controller {
 		parent::__construct();
 		$this->common->header_authentication();
 	}
-	public function get_categories()
+	public function get_categories_by_vendor_type()
 	{
 		$request = $this->input->post();
 		$this->common->field_required(array('vendor_type_id'),$request);

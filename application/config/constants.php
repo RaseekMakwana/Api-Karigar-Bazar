@@ -85,6 +85,14 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
+
+
+if($_SERVER['SERVER_NAME'] == 'localhost'):
+	define('SITE_URL','http://localhost/KB/Api-Karigar-Bazar/');
+else:
+    define('SITE_URL','https://api.karigarbazar.com/');
+endif;
+
 define("HEADER_BASIC_AUTH_USER", 'dbclmatrix');
 define("HEADER_BASIC_AUTH_PW", 'dbclmatrix@123456');
 define("DATA_GET_SUCCESSFULLY", 'Data get successfully');
