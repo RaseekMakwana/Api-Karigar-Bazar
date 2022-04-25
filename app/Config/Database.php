@@ -31,11 +31,11 @@ class Database extends Config
      * @var array
      */
     public $default = [
-        'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'DSN'      => 'karigarbazar.com',
+        'hostname' => '116.206.105.139',
+        'username' => 'karigf2c_karigar_master_user',
+        'password' => 'z07ceubwq0ht',
+        'database' => 'karigf2c_karigar_bazar',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
