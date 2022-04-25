@@ -20,33 +20,33 @@ class Common {
            if($error == 1){
             $response['status'] = '0';
             $response['message'] = 'Invalid authentication';
-            self::_response($response);
+            self::response($response);
            }
         } else {
            $response['status'] = '0';
            $response['message'] = 'Required header authentication credential';
-           self::_response($response);
+           self::response($response);
         }
 
     }
 
-    public function _field_required($field, $post_data){
+    public function field_required($field, $post_data){
         foreach($field as $value){
             if(!isset($post_data[$value])){
                 $response['status'] = 0;
                 $response['message'] = $value." parameter is required";
-                self::_response($response);
+                self::response($response);
             }
             
             if($post_data[$value] == ""){
                 $response['status'] = 0;
                 $response['message'] = $value." should not blank";
-                self::_response($response);
+                self::response($response);
             }
         }  
     }
     
-    public function _response($response){
+    public function response($response){
         header('Content-type: application/json');
         echo json_encode($response);
         exit();

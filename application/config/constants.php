@@ -87,3 +87,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 define("HEADER_BASIC_AUTH_USER", 'dbclmatrix');
 define("HEADER_BASIC_AUTH_PW", 'dbclmatrix@123456');
+define("DATA_GET_SUCCESSFULLY", 'Data get successfully');
