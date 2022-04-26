@@ -17,14 +17,22 @@ class CategoryController extends CI_Controller {
 											WHERE parent_category_id='0'")->result();
 
 
-		$data = array();
+		$arrangeData = array();
 		foreach($query_results as $row){
-			$data[$row->vendor_type_name][] = $row;
+			$arrangeData[$row->vendor_type_name][] = $row;
+		}
+
+		$response_data = array();
+		$i=0;
+		foreach($arrangeData as $key => $row){
+			$response_data[$i]["vendor_type_name"] = $key;
+			$response_data[$i]['categories'] = $row;
+			$i++;
 		}
 
 		$response['status'] = 1;
 		$response['message'] = DATA_GET_SUCCESSFULLY;
-		$response['data'] = $data;
+		$response['data'] = $response_data;
 
 		$this->common->response($response);
 	}
