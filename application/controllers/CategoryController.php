@@ -10,7 +10,6 @@ class CategoryController extends CI_Controller {
 	public function get_list_all_vendor_type_with_all_categories()
 	{
 		$request = $this->input->post();
-		$this->common->field_required(array('vendor_type_id'),$request);
 
 		$query_results = $this->db->query("SELECT cm.category_id, cm.category_name, vtm.vendor_type_name 
 											FROM category_master AS cm
