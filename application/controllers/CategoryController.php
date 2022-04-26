@@ -5,7 +5,7 @@ class CategoryController extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		// $this->common->header_authentication();
+		$this->common->header_authentication();
 	}
 	public function get_categories_by_vendor_type()
 	{
