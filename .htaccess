@@ -1,4 +1,8 @@
-Header set Access-Control-Allow-Origin "*"
+<ifModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin: "*"
+    Header always set Access-Control-Allow-Methods "POST, GET, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "X-Requested-With, Authorization, content-type"
+</ifModule>
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
