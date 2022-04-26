@@ -54,4 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-$route['category/get_categories_by_vendor_type'] = 'CategoryController/get_categories_by_vendor_type';
+$route['category/get_list_all_vendor_type_with_all_categories'] = 'CategoryController/get_list_all_vendor_type_with_all_categories';

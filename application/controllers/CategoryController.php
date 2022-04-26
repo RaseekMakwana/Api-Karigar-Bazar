@@ -7,20 +7,20 @@ class CategoryController extends CI_Controller {
 		parent::__construct();
 		// $this->common->header_authentication();
 	}
-	public function get_categories_by_vendor_type()
+	public function get_list_all_vendor_type_with_all_categories()
 	{
 		$request = $this->input->post();
 		$this->common->field_required(array('vendor_type_id'),$request);
 
-		$query_results = $this->db->query("select * from category_master where vendor_type_id='".$request['vendor_type_id']."'")->result();
+		$query_results = $this->db->query("SELECT cm.category_id, cm.category_name, vtm.vendor_type_name 
+											FROM category_master AS cm
+											LEFT JOIN `vendor_type_master` AS vtm ON vtm.`vendor_type_id`=cm.`vendor_type_id`
+											WHERE parent_category_id='0'")->result();
+
+
 		$data = array();
 		foreach($query_results as $row){
-			$array_category = array(
-				"category_id"=>$row->category_id,
-				"category_name"=>$row->category_name,
-				"picture_thumb"=>$row->picture_thumb
-			);
-			$data[] = array_map("strval",$array_category);
+			$data[$row->vendor_type_name][] = $row;
 		}
 
 		$response['status'] = 1;
