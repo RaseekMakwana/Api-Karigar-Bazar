@@ -98,10 +98,12 @@ class CategoryController extends CI_Controller {
 	public function get_list_all_categories_all_sub_category_by_vendor_type_id() {
 		$request = $this->input->post();
 
+		$this->common->field_required(array('vendor_type_id'),$request);
+
 		$query_results = $this->db->query("SELECT cm.`category_id`,cm.`category_name`,scm.`sub_category_id`,scm.`sub_category_name`
 		FROM category_master AS cm 
 		LEFT JOIN `sub_category_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
-		WHERE cm.`status`='1'")->result();
+		WHERE cm.vendor_type_id='".$request['vendor_type_id']."' AND cm.`status`='1'")->result();
 
 		$arrange_data = array();
 		foreach($query_results as $row){
