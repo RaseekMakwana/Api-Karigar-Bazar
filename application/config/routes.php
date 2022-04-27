@@ -57,3 +57,4 @@ $route['translate_uri_dashes'] = FALSE;
 // Category
 $route['category/get_list_all_vendor_type_with_all_categories'] = 'CategoryController/get_list_all_vendor_type_with_all_categories';
 $route['category/get_list_all_vendor_type_with_all_categories_all_sub_category'] = 'CategoryController/get_list_all_vendor_type_with_all_categories_all_sub_category';
+$route['category/get_list_all_categories_all_sub_category_by_vendor_type_id'] = 'CategoryController/get_list_all_categories_all_sub_category_by_vendor_type_id';

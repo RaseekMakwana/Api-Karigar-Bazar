@@ -94,4 +94,48 @@ class CategoryController extends CI_Controller {
 
 		$this->common->response($response);
 	}
+
+	public function get_list_all_categories_all_sub_category_by_vendor_type_id() {
+		$request = $this->input->post();
+
+		$query_results = $this->db->query("SELECT cm.`category_id`,cm.`category_name`,scm.`sub_category_id`,scm.`sub_category_name`
+		FROM category_master AS cm 
+		LEFT JOIN `sub_category_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
+		WHERE cm.`status`='1'")->result();
+
+		$arrange_data = array();
+		foreach($query_results as $row){
+			$arrange_data[$row->category_id]['category_id'] = $row->category_id;
+			$arrange_data[$row->category_id]['category_name'] = $row->category_name;
+			$arrange_data[$row->category_id]['sub_category_data'][$row->sub_category_id]['sub_category_id'] = $row->sub_category_id;
+			$arrange_data[$row->category_id]['sub_category_data'][$row->sub_category_id]['sub_category_name'] = $row->sub_category_name;
+
+		}
+		
+		// p($arrange_data);
+		$response_data = array();
+		foreach($arrange_data as $row){
+			$level_two = array();
+			foreach($row['sub_category_data'] as $row1){
+				if(!empty($row1['sub_category_id'])){
+					$level_two[] = array(
+						"sub_category_id"=> $row1['sub_category_id'],
+						"sub_category_name"=> $row1['sub_category_name'],
+					);
+				}
+			}
+
+			$response_data[] = array(
+				"category_id"=> $row['category_id'],
+				"category_name"=> $row['category_name'],
+				"sub_category_data"=> $level_two,
+			);
+		}
+
+		$response['status'] = 1;
+		$response['message'] = DATA_GET_SUCCESSFULLY;
+		$response['data'] = $response_data;
+
+		$this->common->response($response);
+	}
 }
