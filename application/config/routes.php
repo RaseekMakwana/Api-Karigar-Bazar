@@ -61,4 +61,4 @@ $route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'Cat
 $route['category/get_sub_category_by_category_slug'] = 'CategoryMasterController/get_sub_category_by_category_slug';
 
 // Vendor Master
-$route['vendor/get_vendor_by_sub_category_id'] = 'VendorMasterController/get_vendor_by_sub_category_id';
+$route['vendor/get_vendor_by_sub_category_slug'] = 'VendorMasterController/get_vendor_by_sub_category_slug';

@@ -8,12 +8,12 @@ class VendorMasterController extends CI_Controller {
 		// $this->common->header_authentication();
 	}
 
-	public function get_vendor_by_sub_category_id() {
+	public function get_vendor_by_sub_category_slug() {
 		$request = $this->input->post();
 
-		$this->common->field_required(array('sub_category_id'),$request);
+		$this->common->field_required(array('sub_category_slug'),$request);
 
-		$query_results = $this->db->query("SELECT * FROM vendor_master WHERE sub_category_id='".$request['sub_category_id']."' AND STATUS='1'")->result();
+		$query_results = $this->db->query("SELECT * FROM vendor_master WHERE sub_category_id in (SELECT sub_category_id FROM sub_category_master WHERE sub_category_slug='".$request['sub_category_slug']."') AND STATUS='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
