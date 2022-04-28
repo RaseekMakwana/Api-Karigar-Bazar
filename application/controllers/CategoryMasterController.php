@@ -31,7 +31,7 @@ class CategoryMasterController extends CI_Controller {
 			$response_data[$i]["vendor_type_slug"] = $row['vendor_type_slug'];
 			$response_data[$i]["vendor_type_name"] = $row['vendor_type_name'];
 			foreach($row['category_data'] as $key => $row1){
-				$response_data[$i]['category_data'] = array_map("strval",array(
+				$response_data[$i]['category_data'][] = array_map("strval",array(
 					"category_id" => $row1->category_id,
 					"category_slug" => $row1->category_slug,
 					"category_name" => $row1->category_name,
