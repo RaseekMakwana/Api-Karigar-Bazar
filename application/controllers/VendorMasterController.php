@@ -19,6 +19,7 @@ class VendorMasterController extends CI_Controller {
 		foreach($query_results as $row){
 			$collect = array(
 				"vendor_id" => $row->vendor_id,
+				"vendor_slug" => $row->vendor_slug,
 				"vendor_name" => $row->vendor_name,
 				"business_name" => $row->business_name,
 				"mobile" => $row->mobile,
@@ -47,6 +48,7 @@ class VendorMasterController extends CI_Controller {
 		foreach($query_results as $row){
 			$collect = array(
 				"vendor_id" => $row->vendor_id,
+				"vendor_slug" => $row->vendor_slug,
 				"vendor_name" => $row->vendor_name,
 				"business_name" => $row->business_name,
 				"mobile" => $row->mobile,
