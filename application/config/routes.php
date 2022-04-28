@@ -58,7 +58,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['category/get_list_vendor_type_with_categories'] = 'CategoryMasterController/get_list_vendor_type_with_categories';
 $route['category/get_list_vendor_type_with_category_with_sub_category'] = 'CategoryMasterController/get_list_vendor_type_with_category_with_sub_category';
 $route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'CategoryMasterController/get_list_categories_and_sub_category_by_vendor_type_id';
-$route['category/get_sub_category_by_category_id'] = 'CategoryMasterController/get_sub_category_by_category_id';
+$route['category/get_sub_category_by_category_slug'] = 'CategoryMasterController/get_sub_category_by_category_slug';
 
 // Vendor Master
 $route['vendor/get_vendor_by_sub_category_id'] = 'VendorMasterController/get_vendor_by_sub_category_id';
