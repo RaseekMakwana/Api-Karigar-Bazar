@@ -11,21 +11,34 @@ class CategoryMasterController extends CI_Controller {
 	public function get_list_all_vendor_type_with_all_categories() {
 		$request = $this->input->post();
 
-		$query_results = $this->db->query("SELECT cm.category_id, cm.category_name, vtm.vendor_type_name, cm.picture_thumb 
+		$query_results = $this->db->query("SELECT cm.category_id,cm.category_slug, cm.category_name, vtm.vendor_type_slug,vtm.vendor_type_name, cm.picture_thumb 
 											FROM category_master AS cm
 											LEFT JOIN `vendor_type_master` AS vtm ON vtm.`vendor_type_id`=cm.`vendor_type_id`")->result();
 
 
 		$arrangeData = array();
 		foreach($query_results as $row){
-			$arrangeData[$row->vendor_type_name][] = $row;
+			$arrangeData[$row->vendor_type_slug]['vendor_type_slug'] = $row->vendor_type_slug;
+			$arrangeData[$row->vendor_type_slug]['vendor_type_name'] = $row->vendor_type_name;
+			$arrangeData[$row->vendor_type_slug]['category_data'][] = $row;
 		}
+		// p($arrangeData);
 
 		$response_data = array();
 		$i=0;
 		foreach($arrangeData as $key => $row){
-			$response_data[$i]["vendor_type_name"] = $key;
-			$response_data[$i]['categories'] = $row;
+			// p($row);
+			$response_data[$i]["vendor_type_slug"] = $row['vendor_type_slug'];
+			$response_data[$i]["vendor_type_name"] = $row['vendor_type_name'];
+			foreach($row['category_data'] as $key => $row1){
+				$response_data[$i]['category_data'] = array_map("strval",array(
+					"category_id" => $row1->category_id,
+					"category_slug" => $row1->category_slug,
+					"category_name" => $row1->category_name,
+					"picture_thumb" => $row1->picture_thumb
+				));
+			}
+			// $response_data[$i]['category_data'] = $row;
 			$i++;
 		}
 
