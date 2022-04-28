@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class CategoryController extends CI_Controller {
+class CategoryMasterController extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -140,4 +140,30 @@ class CategoryController extends CI_Controller {
 
 		$this->common->response($response);
 	}
+
+	public function get_sub_category_by_category_id() {
+		$request = $this->input->post();
+
+		$this->common->field_required(array('category_id'),$request);
+
+		$query_results = $this->db->query("SELECT * FROM sub_category_master WHERE category_id='".$request['category_id']."' AND status='1'")->result();
+
+		$response_data = array();
+		foreach($query_results as $row){
+			$collect = array(
+				"sub_category_id" => $row->sub_category_id,
+				"sub_category_name" => $row->sub_category_name,
+				"picture_thumb" => $row->picture_thumb
+			);
+			$response_data[] = array_map("strval",$collect);
+		}
+		
+
+		$response['status'] = 1;
+		$response['message'] = DATA_GET_SUCCESSFULLY;
+		$response['data'] = $response_data;
+
+		$this->common->response($response);
+	}
+
 }
