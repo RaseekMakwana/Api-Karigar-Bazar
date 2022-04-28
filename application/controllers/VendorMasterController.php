@@ -55,7 +55,7 @@ class VendorMasterController extends CI_Controller {
 				"email" => $row->email,
 				"profile_picture" => $row->profile_picture
 			);
-			$response_data[] = array_map("strval",$collect);
+			$response_data = array_map("strval",$collect);
 		}
 		
 
