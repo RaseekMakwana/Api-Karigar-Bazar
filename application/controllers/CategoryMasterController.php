@@ -8,7 +8,7 @@ class CategoryMasterController extends CI_Controller {
 		// $this->common->header_authentication();
 	}
 
-	public function get_list_all_vendor_type_with_all_categories() {
+	public function get_list_vendor_type_with_categories() {
 		$request = $this->input->post();
 
 		$query_results = $this->db->query("SELECT cm.category_id,cm.category_slug, cm.category_name, vtm.vendor_type_slug,vtm.vendor_type_name, cm.picture_thumb 
@@ -49,7 +49,7 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_list_all_vendor_type_with_all_categories_all_sub_category() {
+	public function get_list_vendor_type_with_category_with_sub_category() {
 		$request = $this->input->post();
 
 		$query_results = $this->db->query("SELECT vtm.vendor_type_slug,vtm.vendor_type_id,vtm.`vendor_type_name`,cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`sub_category_slug`,scm.`sub_category_id`,scm.`sub_category_name`
@@ -114,7 +114,7 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_list_all_categories_all_sub_category_by_vendor_type_id() {
+	public function get_list_categories_and_sub_category_by_vendor_type_id() {
 		$request = $this->input->post();
 
 		$this->common->field_required(array('vendor_type_id'),$request);

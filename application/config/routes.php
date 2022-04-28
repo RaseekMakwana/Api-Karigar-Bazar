@@ -55,9 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 // Category Master
-$route['category/get_list_all_vendor_type_with_all_categories'] = 'CategoryMasterController/get_list_all_vendor_type_with_all_categories';
-$route['category/get_list_all_vendor_type_with_all_categories_all_sub_category'] = 'CategoryMasterController/get_list_all_vendor_type_with_all_categories_all_sub_category';
-$route['category/get_list_all_categories_all_sub_category_by_vendor_type_id'] = 'CategoryMasterController/get_list_all_categories_all_sub_category_by_vendor_type_id';
+$route['category/get_list_vendor_type_with_categories'] = 'CategoryMasterController/get_list_vendor_type_with_categories';
+$route['category/get_list_vendor_type_with_category_with_sub_category'] = 'CategoryMasterController/get_list_vendor_type_with_category_with_sub_category';
+$route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'CategoryMasterController/get_list_categories_and_sub_category_by_vendor_type_id';
 $route['category/get_sub_category_by_category_id'] = 'CategoryMasterController/get_sub_category_by_category_id';
 
 // Vendor Master
