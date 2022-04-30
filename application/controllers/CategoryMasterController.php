@@ -11,7 +11,7 @@ class CategoryMasterController extends CI_Controller {
 	public function get_list_vendor_type_with_categories() {
 		$request = $this->input->post();
 
-		$query_results = $this->db->query("SELECT cm.category_id,cm.category_slug, cm.category_name, vtm.vendor_type_slug,vtm.vendor_type_name, cm.picture_thumb 
+		$query_results = $this->db->query("SELECT cm.category_id,cm.category_slug, cm.category_name, vtm.vendor_type_slug,vtm.vendor_type_name,vtm.picture_thumb,cm.picture_thumb 
 											FROM category_master AS cm
 											LEFT JOIN `vendor_type_master` AS vtm ON vtm.`vendor_type_id`=cm.`vendor_type_id` WHERE cm.status='1' AND vtm.status='1'")->result();
 
@@ -20,6 +20,7 @@ class CategoryMasterController extends CI_Controller {
 		foreach($query_results as $row){
 			$arrangeData[$row->vendor_type_slug]['vendor_type_slug'] = $row->vendor_type_slug;
 			$arrangeData[$row->vendor_type_slug]['vendor_type_name'] = $row->vendor_type_name;
+			$arrangeData[$row->vendor_type_slug]['picture_thumb'] = $row->picture_thumb;
 			$arrangeData[$row->vendor_type_slug]['category_data'][] = $row;
 		}
 		// p($arrangeData);
