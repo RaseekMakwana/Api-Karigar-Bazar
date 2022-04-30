@@ -53,7 +53,7 @@ class CategoryMasterController extends CI_Controller {
 	public function get_list_vendor_type_with_category_with_sub_category() {
 		$request = $this->input->post();
 
-		$query_results = $this->db->query("SELECT vtm.vendor_type_slug,vtm.vendor_type_id,vtm.`vendor_type_name`,cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`sub_category_slug`,scm.`sub_category_id`,scm.`sub_category_name`
+		$query_results = $this->db->query("SELECT vtm.vendor_type_slug,vtm.vendor_type_id,vtm.`vendor_type_name`,vtm.`picture_thumb`,cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`sub_category_slug`,scm.`sub_category_id`,scm.`sub_category_name`
 		FROM vendor_type_master AS vtm 
 		LEFT JOIN category_master AS cm ON cm.`vendor_type_id`=vtm.`vendor_type_id` AND cm.`status`='1'
 		LEFT JOIN `sub_category_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
@@ -65,6 +65,7 @@ class CategoryMasterController extends CI_Controller {
 			$arrange_data[$row->vendor_type_id]['vendor_type_slug'] = $row->vendor_type_slug;
 			$arrange_data[$row->vendor_type_id]['vendor_type_id'] = $row->vendor_type_id;
 			$arrange_data[$row->vendor_type_id]['vendor_type_name'] = $row->vendor_type_name;
+			$arrange_data[$row->vendor_type_id]['picture_thumb'] = $row->picture_thumb;
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_slug'] = $row->category_slug;
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_id'] = $row->category_id;
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_name'] = $row->category_name;
