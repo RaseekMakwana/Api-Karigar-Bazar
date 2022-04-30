@@ -104,6 +104,7 @@ class CategoryMasterController extends CI_Controller {
 				"vendor_type_slug"=>$row['vendor_type_slug'],
 				"vendor_type_id"=>$row['vendor_type_id'],
 				"vendor_type_name"=>$row['vendor_type_name'],
+				"picture_thumb"=>$row['picture_thumb'],
 				"category_data"=>$level_one
 			);
 
