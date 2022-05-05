@@ -5,7 +5,7 @@ class Welcome extends CI_Controller {
 
 	
 
-	public function get_list_vendor_type_with_categories() {
+	public function index() {
 		$this->load->view('welcome');
 	}
 
