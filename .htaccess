@@ -1,0 +1,13 @@
+<ifModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin: "*"
+    Header always set Access-Control-Allow-Methods "POST, GET"
+    Header always set Access-Control-Allow-Headers "Authorization, X-Requested-With, Content-Type"
+</ifModule>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
