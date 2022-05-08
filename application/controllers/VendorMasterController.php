@@ -31,8 +31,8 @@ class VendorMasterController extends CI_Controller {
 			$response['message'] = DATA_SAVED_SUCCESSFULLY;
 		} else {
 			$response['status'] = 0;
-			$response['message'] = ERROR_FOUND;
-			$response['data'] = "mobile_no";
+			$response['message'] = ERROR_TAG_FOUND;
+			$response['data'] = "mobile_no_already_exist";
 		}
 		
 		$this->common->response($response);
