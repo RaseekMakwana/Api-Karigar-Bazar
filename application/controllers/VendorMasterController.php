@@ -11,20 +11,30 @@ class VendorMasterController extends CI_Controller {
 	public function become_a_vendor(){
 		$request = $this->input->post();
 		$this->common->field_required(array('business_name','contact_person_name','mobile_no','email_address','password','vendor_type_id','category_id','state_id','city_id'),$request);
-		$insertData = array(
-			"vendor_name" => $request['contact_person_name'],
-			"business_name" => $request['business_name'],
-			"mobile" => $request['mobile_no'],
-			"email" => $request['email_address'],
-			"password" => $request['password'],
-			"vendor_type_id" => $request['vendor_type_id'],
-			"category_id" => $request['category_id'],
-			"state_id" => $request['state_id'],
-			"city_id" => $request['city_id']
-		);
-		$this->db->insert('vendor_master',$insertData);
-		$response['status'] = 1;
-		$response['message'] = DATA_SAVED_SUCCESSFULLY;
+
+		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM vendor_master WHERE mobile='".$request['mobile_no']."'")->row();
+
+		if(empty($check_user_exist->number_of_records)){
+			$insertData = array(
+				"vendor_name" => $request['contact_person_name'],
+				"business_name" => $request['business_name'],
+				"mobile" => $request['mobile_no'],
+				"email" => $request['email_address'],
+				"password" => $request['password'],
+				"vendor_type_id" => $request['vendor_type_id'],
+				"category_id" => $request['category_id'],
+				"state_id" => $request['state_id'],
+				"city_id" => $request['city_id']
+			);
+			$this->db->insert('vendor_master',$insertData);
+			$response['status'] = 1;
+			$response['message'] = DATA_SAVED_SUCCESSFULLY;
+		} else {
+			$response['status'] = 0;
+			$response['field'] = "mobile_no";
+			$response['message'] = "Mobile Number is already exist";
+		}
+		
 		$this->common->response($response);
 	}
 
