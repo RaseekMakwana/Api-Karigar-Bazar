@@ -61,7 +61,7 @@ $route['states/get_states'] = 'StateMasterController/get_states';
 $route['cities/get_cities_by_state_id'] = 'CityMasterController/get_cities_by_state_id';
 
 // Cosmatic 
-$route['cosmatic/get_vendor_type'] = 'CosmaticMasterController/get_vendor_type';
+$route['vendor_type/get_vendor_type'] = 'VendorTypeMasterController/get_vendor_type';
 
 // Category Master
 $route['category/get_list_vendor_type_with_categories'] = 'CategoryMasterController/get_list_vendor_type_with_categories';
