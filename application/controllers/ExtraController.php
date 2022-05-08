@@ -10,13 +10,13 @@ class ExtraController extends CI_Controller {
 
 	public function post_your_requirement(){
 		$request = $this->input->post();
-		$this->common->field_required(array('name','mobile','email_address','message'),$request);
+		$this->common->field_required(array('name','mobile','email','message'),$request);
 
 
 		$insertData = array(
 			"name" => $request['name'],
 			"mobile" => $request['mobile'],
-			"email" => $request['email_address'],
+			"email" => $request['email'],
 			"message" => $request['message'],
 		);
 		$this->db->insert('post_your_requirement',$insertData);
