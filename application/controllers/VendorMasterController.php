@@ -8,6 +8,26 @@ class VendorMasterController extends CI_Controller {
 		// $this->common->header_authentication();
 	}
 
+	public function become_a_vendor(){
+		$request = $this->input->post();
+		$this->common->field_required(array('business_name','contact_person_name','mobile_no','email_address','password','vendor_type_id','category_id','state_id','city_id'),$request);
+		$insertData = array(
+			"vendor_name" => $request['contact_person_name'],
+			"business_name" => $request['business_name'],
+			"mobile" => $request['mobile_no'],
+			"email" => $request['email_address'],
+			"password" => $request['password'],
+			"vendor_type_id" => $request['vendor_type_id'],
+			"category_id" => $request['category_id'],
+			"state_id" => $request['state_id'],
+			"city_id" => $request['city_id']
+		);
+		$this->db->insert('vendor_master',$insertData);
+		$response['status'] = 1;
+		$response['message'] = DATA_SAVED_SUCCESSFULLY;
+		$this->common->response($response);
+	}
+
 	public function get_vendor_by_sub_category_slug() {
 		$request = $this->input->post();
 
@@ -65,4 +85,6 @@ class VendorMasterController extends CI_Controller {
 
 		$this->common->response($response);
 	}
+
+	
 }
