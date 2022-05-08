@@ -31,7 +31,7 @@ class VendorMasterController extends CI_Controller {
 			$response['message'] = DATA_SAVED_SUCCESSFULLY;
 		} else {
 			$response['status'] = 0;
-			$response['message'] = DATA_NOT_FOUND;
+			$response['message'] = ERROR_FOUND;
 			$response['data'] = "mobile_no";
 		}
 		

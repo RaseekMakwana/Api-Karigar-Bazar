@@ -96,5 +96,5 @@ endif;
 define("HEADER_BASIC_AUTH_USER", 'dbclmatrix');
 define("HEADER_BASIC_AUTH_PW", 'dbclmatrix@123456');
 define("DATA_GET_SUCCESSFULLY", 'Data get successfully');
-define("DATA_NOT_FOUND", 'Data not found');
+define("ERROR_FOUND", 'Error found');
 define("DATA_SAVED_SUCCESSFULLY", 'Data saved successfully');
