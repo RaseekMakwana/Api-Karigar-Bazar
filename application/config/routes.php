@@ -53,6 +53,8 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// Extra
+$route['post_your_requirement'] = 'ExtraController/post_your_requirement';
 
 // State
 $route['states/get_states'] = 'StateMasterController/get_states';
