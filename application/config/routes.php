@@ -54,11 +54,21 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
+// State
+$route['states/get_states'] = 'StateMasterController/get_states';
+
+// Cities
+$route['cities/get_cities_by_state_id'] = 'CityMasterController/get_cities_by_state_id';
+
+// Cosmatic 
+$route['cosmatic/get_vendor_type'] = 'CosmaticMasterController/get_vendor_type';
+
 // Category Master
 $route['category/get_list_vendor_type_with_categories'] = 'CategoryMasterController/get_list_vendor_type_with_categories';
 $route['category/get_list_vendor_type_with_category_with_sub_category'] = 'CategoryMasterController/get_list_vendor_type_with_category_with_sub_category';
 $route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'CategoryMasterController/get_list_categories_and_sub_category_by_vendor_type_id';
 $route['category/get_sub_category_by_category_slug'] = 'CategoryMasterController/get_sub_category_by_category_slug';
+$route['category/get_category_by_vendor_type_id'] = 'CategoryMasterController/get_category_by_vendor_type_id';
 
 // Vendor Master
 $route['vendor/get_vendor_by_sub_category_slug'] = 'VendorMasterController/get_vendor_by_sub_category_slug';

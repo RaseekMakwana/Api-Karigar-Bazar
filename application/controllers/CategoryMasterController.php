@@ -58,7 +58,6 @@ class CategoryMasterController extends CI_Controller {
 		LEFT JOIN category_master AS cm ON cm.`vendor_type_id`=vtm.`vendor_type_id` AND cm.`status`='1'
 		LEFT JOIN `sub_category_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
 		WHERE vtm.`status`='1'")->result();
-	// p($query_results);
 
 		$arrange_data = array();
 		foreach($query_results as $row){
@@ -180,6 +179,32 @@ class CategoryMasterController extends CI_Controller {
 				"sub_category_slug" => $row->sub_category_slug,
 				"sub_category_id" => $row->sub_category_id,
 				"sub_category_name" => $row->sub_category_name,
+				"picture_thumb" => $row->picture_thumb
+			);
+			$response_data[] = array_map("strval",$collect);
+		}
+		
+
+		$response['status'] = 1;
+		$response['message'] = DATA_GET_SUCCESSFULLY;
+		$response['data'] = $response_data;
+
+		$this->common->response($response);
+	}
+
+	public function get_category_by_vendor_type_id(){
+		$request = $this->input->post();
+
+		$this->common->field_required(array('vendor_type_id'),$request);
+
+		$query_results = $this->db->query("SELECT category_id,category_slug,category_name,picture_thumb FROM category_master WHERE vendor_type_id='".$request['vendor_type_id']."'  AND STATUS='1'")->result();
+
+		$response_data = array();
+		foreach($query_results as $row){
+			$collect = array(
+				"category_id" => $row->category_id,
+				"category_slug" => $row->category_slug,
+				"category_name" => $row->category_name,
 				"picture_thumb" => $row->picture_thumb
 			);
 			$response_data[] = array_map("strval",$collect);
