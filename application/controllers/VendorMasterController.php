@@ -22,7 +22,6 @@ class VendorMasterController extends CI_Controller {
 				"business_name" => $request['business_name'],
 				"mobile" => $request['mobile_no'],
 				"email" => $request['email_address'],
-				"password" => $request['password'],
 				"vendor_type_id" => $request['vendor_type_id'],
 				"category_id" => $request['category_id'],
 				"state_id" => $request['state_id'],
