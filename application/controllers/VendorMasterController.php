@@ -15,7 +15,9 @@ class VendorMasterController extends CI_Controller {
 		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM vendor_master WHERE mobile='".$request['mobile_no']."'")->row();
 
 		if(empty($check_user_exist->number_of_records)){
+			$user_id = time().uniqid();
 			$insertData = array(
+				"user_id" => $user_id,
 				"vendor_name" => $request['contact_person_name'],
 				"business_name" => $request['business_name'],
 				"mobile" => $request['mobile_no'],
@@ -27,6 +29,14 @@ class VendorMasterController extends CI_Controller {
 				"city_id" => $request['city_id']
 			);
 			$this->db->insert('vendor_master',$insertData);
+
+			$insertData = array(
+				"user_id" => $user_id,
+				"mobile" => $request['mobile_no'],
+				"password" => $request['password'],
+			);
+			$this->db->insert('login_master',$insertData);
+
 			$response['status'] = 1;
 			$response['message'] = DATA_SAVED_SUCCESSFULLY;
 		} else {
