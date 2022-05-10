@@ -15,8 +15,8 @@ class AuthenticationController extends CI_Controller {
 		$mobile_number = base64_decode($request['mobile_number']);
 		$password = base64_decode($request['password']);
 
-		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$mobile_number."' AND password='".$password."' AND status='1'")->row();
-		if(!empty($check_user_exist->number_of_records)){
+		$login_data = $this->db->query("SELECT * FROM login_master WHERE mobile='".$mobile_number."' AND password='".$password."' AND status='1'")->row();
+		if(!empty($login_data)){
 			$user_details = $this->db->query("SELECT * FROM vendor_master WHERE mobile='".$mobile_number."' AND status='1'")->row();
 			$data = array(
 				"user_id" => $user_details->user_id,
@@ -27,7 +27,8 @@ class AuthenticationController extends CI_Controller {
 				"vendor_type_id" => $user_details->vendor_type_id,
 				"category_id" => $user_details->category_id,
 				"state_id" => $user_details->state_id,
-				"city_id" => $user_details->city_id
+				"city_id" => $user_details->city_id,
+				"user_type"=>$login_data->user_type
 			);
 
 			$response['status'] = 1;
