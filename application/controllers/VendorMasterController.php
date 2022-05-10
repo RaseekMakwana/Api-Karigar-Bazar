@@ -12,7 +12,7 @@ class VendorMasterController extends CI_Controller {
 		$request = $this->input->post();
 		$this->common->field_required(array('business_name','contact_person_name','mobile_no','email_address','password','vendor_type_id','category_id','state_id','city_id'),$request);
 
-		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM vendor_master WHERE mobile='".$request['mobile_no']."'")->row();
+		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
 
 		if(empty($check_user_exist->number_of_records)){
 			$user_id = time().uniqid();
