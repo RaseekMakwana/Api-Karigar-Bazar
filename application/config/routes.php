@@ -53,6 +53,9 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// Authentication
+$route['login_attempt'] = 'AuthenticationController/login_attempt';
+
 // Extra
 $route['post_your_requirement'] = 'ExtraController/post_your_requirement';
 
