@@ -79,3 +79,4 @@ $route['category/get_category_by_vendor_type_id'] = 'CategoryMasterController/ge
 $route['vendor/get_vendor_by_sub_category_slug'] = 'VendorMasterController/get_vendor_by_sub_category_slug';
 $route['vendor/get_vendor_details_by_vendor_slug'] = 'VendorMasterController/get_vendor_details_by_vendor_slug';
 $route['vendor/become-a-vendor'] = 'VendorMasterController/become_a_vendor';
+$route['vendor/get_sub_category_and_cities_by_user_id'] = 'VendorMasterController/get_sub_category_and_cities_by_user_id';

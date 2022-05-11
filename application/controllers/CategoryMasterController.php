@@ -218,4 +218,6 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
+	
+
 }
