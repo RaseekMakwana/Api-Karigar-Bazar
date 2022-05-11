@@ -15,6 +15,7 @@ class AuthenticationController extends CI_Controller {
 		$mobile_number = base64_decode($request['mobile_number']);
 		$password = base64_decode($request['password']);
 
+		$response = array();
 		$login_data = $this->db->query("SELECT * FROM login_master WHERE mobile='".$mobile_number."' AND password='".$password."' AND status='1'")->row();
 		if(!empty($login_data)){
 			$user_details = $this->db->query("SELECT * FROM vendor_master WHERE mobile='".$mobile_number."'")->row();
@@ -36,7 +37,9 @@ class AuthenticationController extends CI_Controller {
 				$response['message'] = DATA_SAVED_SUCCESSFULLY;
 				$response['data'] = array_map("strval",$data);
 			} else if($user_details->user_id == "0"){
-
+				$response['status'] = 0;
+				$response['message'] = ERROR_TAG_FOUND;
+				$response['data'] = "user_is_deactivated";
 			}
 			
 		} else {
