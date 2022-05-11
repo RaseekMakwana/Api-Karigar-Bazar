@@ -11,7 +11,7 @@ class CityMasterController extends CI_Controller {
 	public function get_cities_by_state_id(){
 		$request = $this->input->post();
 		$this->common->field_required(array('state_id'),$request);
-		$query_results = $this->db->query("SELECT city_id,city_slug,city_name FROM `city_master` WHERE state_id='".$request['state_id']."' AND STATUS='1'")->result();
+		$query_results = $this->db->query("SELECT city_id,city_slug,city_name FROM `cities_master` WHERE state_id='".$request['state_id']."' AND STATUS='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){

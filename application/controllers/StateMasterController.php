@@ -9,7 +9,7 @@ class StateMasterController extends CI_Controller {
 	}
 
 	public function get_states(){
-		$query_results = $this->db->query("SELECT state_id, state_name FROM state_master WHERE STATUS='1'")->result();
+		$query_results = $this->db->query("SELECT state_id, state_name FROM states_master WHERE STATUS='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
