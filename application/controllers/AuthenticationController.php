@@ -17,23 +17,28 @@ class AuthenticationController extends CI_Controller {
 
 		$login_data = $this->db->query("SELECT * FROM login_master WHERE mobile='".$mobile_number."' AND password='".$password."' AND status='1'")->row();
 		if(!empty($login_data)){
-			$user_details = $this->db->query("SELECT * FROM vendor_master WHERE mobile='".$mobile_number."' AND status='1'")->row();
-			$data = array(
-				"user_id" => $user_details->user_id,
-				"user_name" => $user_details->user_name,
-				"business_name" => $user_details->business_name,
-				"mobile" => $user_details->mobile,
-				"email" => $user_details->email,
-				"vendor_type_id" => $user_details->vendor_type_id,
-				"category_id" => $user_details->category_id,
-				"state_id" => $user_details->state_id,
-				"city_id" => $user_details->city_id,
-				"user_type"=>$login_data->user_type
-			);
+			$user_details = $this->db->query("SELECT * FROM vendor_master WHERE mobile='".$mobile_number."'")->row();
+			if(in_array($user_details->user_id, array('1','2'))){
+				$data = array(
+					"user_id" => $user_details->user_id,
+					"user_name" => $user_details->user_name,
+					"business_name" => $user_details->business_name,
+					"mobile" => $user_details->mobile,
+					"email" => $user_details->email,
+					"vendor_type_id" => $user_details->vendor_type_id,
+					"category_id" => $user_details->category_id,
+					"state_id" => $user_details->state_id,
+					"city_id" => $user_details->city_id,
+					"user_type"=>$login_data->user_type,
+					"status"=>$login_data->status
+				);
+				$response['status'] = 1;
+				$response['message'] = DATA_SAVED_SUCCESSFULLY;
+				$response['data'] = array_map("strval",$data);
+			} else if($user_details->user_id == "0"){
 
-			$response['status'] = 1;
-			$response['message'] = DATA_SAVED_SUCCESSFULLY;
-			$response['data'] = array_map("strval",$data);
+			}
+			
 		} else {
 			$response['status'] = 0;
 			$response['message'] = ERROR_TAG_FOUND;
