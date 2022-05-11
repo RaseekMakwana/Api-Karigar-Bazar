@@ -28,7 +28,6 @@ class AuthenticationController extends CI_Controller {
 				"category_id" => $user_details->category_id,
 				"state_id" => $user_details->state_id,
 				"city_id" => $user_details->city_id,
-				"is_profile_completed"=>$user_details->is_profile_completed,
 				"user_type"=>$login_data->user_type
 			);
 
