@@ -64,6 +64,8 @@ $route['states/get_states'] = 'StateMasterController/get_states';
 
 // Cities
 $route['cities/get_cities_by_state_id'] = 'CityMasterController/get_cities_by_state_id';
+$route['cities/get_cities_by_like_city_name'] = 'CityMasterController/get_cities_by_like_city_name';
+
 
 // Cosmatic 
 $route['vendor_type/get_vendor_type'] = 'VendorTypeMasterController/get_vendor_type';
@@ -79,4 +81,6 @@ $route['category/get_category_by_vendor_type_id'] = 'CategoryMasterController/ge
 $route['vendor/get_vendor_by_sub_category_slug'] = 'VendorMasterController/get_vendor_by_sub_category_slug';
 $route['vendor/get_vendor_details_by_vendor_slug'] = 'VendorMasterController/get_vendor_details_by_vendor_slug';
 $route['vendor/become-a-vendor'] = 'VendorMasterController/become_a_vendor';
-$route['vendor/get_sub_category_and_cities_by_user_id'] = 'VendorMasterController/get_sub_category_and_cities_by_user_id';
+
+// Vendor Profile
+$route['vendor_profile/predefind-meta-data/predefined_vendor_mata_data'] = 'VendorProfile/PredefinedMetaDataController/predefined_vendor_mata_data';
