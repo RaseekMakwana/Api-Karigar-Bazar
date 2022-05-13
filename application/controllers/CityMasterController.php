@@ -34,7 +34,7 @@ class CityMasterController extends CI_Controller {
 	public function get_cities_by_like_city_name(){
 		$request = $this->input->post();
 		$this->common->field_required(array('keyword'),$request);
-		$query_results = $this->db->query("SELECT * FROM cities_master WHERE city_name LIKE '%".$request['keyword']."%' limit 5")->result();
+		$query_results = $this->db->query("SELECT * FROM cities_master WHERE city_name LIKE '%".$request['keyword']."%' limit 10")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){

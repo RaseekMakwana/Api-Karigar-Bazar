@@ -223,7 +223,7 @@ class CategoryMasterController extends CI_Controller {
 
 		$this->common->field_required(array('keyword'),$request);
 
-		$query_results = $this->db->query("SELECT * FROM `sub_category_master` WHERE sub_category_name LIKE '%".$request['keyword']."%' AND status='1' limit 5")->result();
+		$query_results = $this->db->query("SELECT * FROM `sub_category_master` WHERE sub_category_name LIKE '%".$request['keyword']."%' AND status='1' limit 10")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
