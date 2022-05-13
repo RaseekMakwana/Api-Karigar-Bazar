@@ -218,6 +218,31 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
+	public function get_sub_category_by_like_sub_category_name(){
+		$request = $this->input->post();
+
+		$this->common->field_required(array('keyword'),$request);
+
+		$query_results = $this->db->query("SELECT * FROM `sub_category_master` WHERE sub_category_name LIKE '%".$request['keyword']."%' AND status='1' limit 5")->result();
+
+		$response_data = array();
+		foreach($query_results as $row){
+			$collect = array(
+				"sub_category_slug" => $row->sub_category_slug,
+				"sub_category_id" => $row->sub_category_id,
+				"sub_category_name" => $row->sub_category_name
+			);
+			$response_data[] = array_map("strval",$collect);
+		}
+		
+
+		$response['status'] = 1;
+		$response['message'] = DATA_GET_SUCCESSFULLY;
+		$response['data'] = $response_data;
+
+		$this->common->response($response);
+	}
+
 	
 
 }
