@@ -166,12 +166,19 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_sub_category_by_category_slug() {
+	//  Search category_id, category_slug
+	public function get_sub_category_by_category() {
 		$request = $this->input->post();
 
-		$this->common->field_required(array('category_slug'),$request);
+		$this->common->field_required(array('action','value'),$request);
 
-		$query_results = $this->db->query("SELECT * FROM sub_category_master WHERE category_id in (SELECT category_id FROM category_master where category_slug='".$request['category_slug']."') AND status='1'")->result();
+		$query_string = "";
+		if($request['action'] == "slug"){
+			$query_string .= " category_slug='".$request['value']."'";
+		} else {
+			$query_string .= " category_id='".$request['value']."'";
+		}
+		$query_results = $this->db->query("SELECT * FROM sub_category_master WHERE category_id in (SELECT category_id FROM category_master where $query_string AND status='1') AND status='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){

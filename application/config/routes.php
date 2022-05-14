@@ -74,7 +74,7 @@ $route['vendor_type/get_vendor_type'] = 'VendorTypeMasterController/get_vendor_t
 $route['category/get_list_vendor_type_with_categories'] = 'CategoryMasterController/get_list_vendor_type_with_categories';
 $route['category/get_list_vendor_type_with_category_with_sub_category'] = 'CategoryMasterController/get_list_vendor_type_with_category_with_sub_category';
 $route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'CategoryMasterController/get_list_categories_and_sub_category_by_vendor_type_id';
-$route['category/get_sub_category_by_category_slug'] = 'CategoryMasterController/get_sub_category_by_category_slug';
+$route['category/get_sub_category_by_category'] = 'CategoryMasterController/get_sub_category_by_category';
 $route['category/get_category_by_vendor_type_id'] = 'CategoryMasterController/get_category_by_vendor_type_id';
 $route['category/get_sub_category_by_like_sub_category_name'] = 'CategoryMasterController/get_sub_category_by_like_sub_category_name';
 
