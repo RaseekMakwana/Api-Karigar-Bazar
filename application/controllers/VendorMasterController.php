@@ -47,7 +47,7 @@ class VendorMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_vendor_by_sub_category_slug() {
+	public function get_vendor_details_by_sub_category_slug() {
 		$request = $this->input->post();
 
 		$this->common->field_required(array('sub_category_slug'),$request);
