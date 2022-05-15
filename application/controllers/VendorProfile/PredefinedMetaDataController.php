@@ -8,42 +8,37 @@ class PredefinedMetaDataController extends CI_Controller {
 		// $this->common->header_authentication();
 	}
 
-	public function predefined_vendor_mata_data(){
+	public function stora_predefined_meta_data(){
 		$request = $this->input->post();
+		$this->common->field_required(array('categories_collection'),$request);
 
-		$this->common->field_required(array('user_id'),$request);
+		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
 
-		$query_results = $this->db->query("SELECT * FROM `sub_category_master` WHERE category_id = (SELECT category_id FROM vendor_master WHERE user_id='".$request['user_id']."') AND status='1'")->result();
-
-		$sub_categories_data = array();
-		foreach($query_results as $row){
-			$collect = array(
-				"sub_category_slug" => $row->sub_category_slug,
-				"sub_category_id" => $row->sub_category_id,
-				"sub_category_name" => $row->sub_category_name
+		if(empty($check_user_exist->number_of_records)){
+			$user_id = time().uniqid();
+			$insertData = array(
+				"user_id" => $user_id,
+				"user_name" => $request['contact_person_name'],
+				"business_name" => $request['business_name'],
+				"mobile" => $request['mobile_no'],
+				"email" => $request['email_address'],
+				"vendor_type_id" => $request['vendor_type_id'],
+				"category_id" => $request['category_id'],
+				"state_id" => $request['state_id'],
+				"city_id" => $request['city_id']
 			);
-			$sub_categories_data[] = array_map("strval",$collect);
-		}
+			$this->db->insert('vendor_master',$insertData);
 
-		$query_results = $this->db->query("SELECT * FROM `cities_master` WHERE state_id = (select state_id from vendor_master where user_id='".$request['user_id']."')")->result();
-
-		$cities_data = array();
-		foreach($query_results as $row){
-			$collect = array(
-				"city_id" => $row->city_id,
-				"city_name" => $row->city_name,
+			$insertData = array(
+				"user_id" => $user_id,
+				"mobile" => $request['mobile_no'],
+				"password" => $request['password'],
 			);
-			$cities_data[] = array_map("strval",$collect);
+			$this->db->insert('login_master',$insertData);
+
+			$response['status'] = 1;
+			$response['message'] = DATA_SAVED_SUCCESSFULLY;
 		}
-		
-
-		$response['status'] = 1;
-		$response['message'] = DATA_GET_SUCCESSFULLY;
-		$response['data']['sub_categories'] = $sub_categories_data;
-		$response['data']['cities'] = $cities_data;
-
-		$this->common->response($response);
 	}
-
 	
 }

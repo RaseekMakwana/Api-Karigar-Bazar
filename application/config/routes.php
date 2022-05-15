@@ -86,4 +86,4 @@ $route['vendor/get_sub_category_by_user_id'] = 'VendorMasterController/get_sub_c
 $route['vendor/get_cities_by_user_id'] = 'VendorMasterController/get_cities_by_user_id';
 
 // Vendor Profile
-$route['vendor_profile/predefind-meta-data/predefined_vendor_mata_data'] = 'VendorProfile/PredefinedMetaDataController/predefined_vendor_mata_data';
+$route['vendor_profile/predefind-meta-data/stora_predefined_meta_data'] = 'VendorProfile/PredefinedMetaDataController/stora_predefined_meta_data';
