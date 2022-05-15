@@ -10,35 +10,23 @@ class PredefinedMetaDataController extends CI_Controller {
 
 	public function stora_predefined_meta_data(){
 		$request = $this->input->post();
-		$this->common->field_required(array('categories_collection'),$request);
-
-		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
-
-		if(empty($check_user_exist->number_of_records)){
-			$user_id = time().uniqid();
-			$insertData = array(
-				"user_id" => $user_id,
-				"user_name" => $request['contact_person_name'],
-				"business_name" => $request['business_name'],
-				"mobile" => $request['mobile_no'],
-				"email" => $request['email_address'],
-				"vendor_type_id" => $request['vendor_type_id'],
-				"category_id" => $request['category_id'],
-				"state_id" => $request['state_id'],
-				"city_id" => $request['city_id']
-			);
-			$this->db->insert('vendor_master',$insertData);
-
-			$insertData = array(
-				"user_id" => $user_id,
-				"mobile" => $request['mobile_no'],
-				"password" => $request['password'],
-			);
-			$this->db->insert('login_master',$insertData);
-
-			$response['status'] = 1;
-			$response['message'] = DATA_SAVED_SUCCESSFULLY;
+		$this->common->field_required(array('user_id','categories_collection'),$request);
+		$category_collection_array = json_decode($request['categories_collection']);
+		
+		$collect_ids = array();
+		foreach($category_collection_array as $row){
+			$collect_ids[] = $row->id;
 		}
+
+		$target_categories = implode(",",$collect_ids);
+
+		$updateData = array(
+			"target_categories" => $target_categories,
+			"status" => '1',
+		);
+		$this->db->where(array("user_id"=>$request['user_id']));
+		$this->db->update('vendor_master',$updateData);
+
 	}
 	
 }
