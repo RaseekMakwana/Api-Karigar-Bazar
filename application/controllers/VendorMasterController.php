@@ -18,7 +18,7 @@ class VendorMasterController extends CI_Controller {
 			$user_id = time().uniqid();
 			$insertData = array(
 				"user_id" => $user_id,
-				"user_name" => $request['contact_person_name'],
+				"full_name" => $request['contact_person_name'],
 				"business_name" => $request['business_name'],
 				"mobile" => $request['mobile_no'],
 				"email" => $request['email_address'],
@@ -76,18 +76,17 @@ class VendorMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_vendor_details_by_vendor_slug() {
+	public function get_vendor_details_by_vendor_id() {
 		$request = $this->input->post();
 
-		$this->common->field_required(array('vendor_slug'),$request);
+		$this->common->field_required(array('user_id'),$request);
 
-		$query_results = $this->db->query("SELECT * FROM vendor_master WHERE vendor_slug ='".$request['vendor_slug']."' AND STATUS='1'")->result();
+		$query_results = $this->db->query("SELECT * FROM vendor_master WHERE user_id ='".$request['user_id']."' AND STATUS='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
 			$collect = array(
-				"vendor_id" => $row->vendor_id,
-				"vendor_slug" => $row->vendor_slug,
+				"user_id" => $row->user_id,
 				"vendor_name" => $row->vendor_name,
 				"business_name" => $row->business_name,
 				"mobile" => $row->mobile,

@@ -21,7 +21,7 @@ class AuthenticationController extends CI_Controller {
 			$user_details = $this->db->query("SELECT * FROM vendor_master WHERE mobile='".$mobile_number."'")->row();
 			$data = array(
 				"user_id" => $user_details->user_id,
-				"user_name" => $user_details->user_name,
+				"full_name" => $user_details->full_name,
 				"business_name" => $user_details->business_name,
 				"mobile" => $user_details->mobile,
 				"email" => $user_details->email,
