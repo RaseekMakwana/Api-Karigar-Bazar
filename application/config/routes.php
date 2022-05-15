@@ -82,6 +82,8 @@ $route['category/get_sub_category_by_like_sub_category_name'] = 'CategoryMasterC
 $route['vendor/get_vendor_details_by_sub_category_slug'] = 'VendorMasterController/get_vendor_details_by_sub_category_slug';
 $route['vendor/get_vendor_details_by_vendor_slug'] = 'VendorMasterController/get_vendor_details_by_vendor_slug';
 $route['vendor/become-a-vendor'] = 'VendorMasterController/become_a_vendor';
+$route['vendor/get_sub_category_by_user_id'] = 'VendorMasterController/get_sub_category_by_user_id';
+$route['vendor/get_cities_by_user_id'] = 'VendorMasterController/get_cities_by_user_id';
 
 // Vendor Profile
 $route['vendor_profile/predefind-meta-data/predefined_vendor_mata_data'] = 'VendorProfile/PredefinedMetaDataController/predefined_vendor_mata_data';
