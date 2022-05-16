@@ -18,7 +18,7 @@ class VendorMasterController extends CI_Controller {
 			$user_id = time().uniqid();
 			$insertData = array(
 				"user_id" => $user_id,
-				"full_name" => $request['contact_person_name'],
+				"vendor_name" => $request['contact_person_name'],
 				"business_name" => $request['business_name'],
 				"mobile" => $request['mobile_no'],
 				"email" => $request['email_address'],
