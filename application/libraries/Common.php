@@ -57,7 +57,7 @@ class Common {
         $filename = pathinfo($filename, PATHINFO_FILENAME);
         $ignore_spacial_char = array(" ","%20",",","@","$","%","&","\\","/",":","*","?","\"","'","<",">","|","~","`","#","^","+","=","(",")","₹","×","÷","{","}","[","]",";","!");
         $filename = str_replace($ignore_spacial_char,"",basename($filename));
-        $filename = substr($filename,0,40);
+        $filename = substr($filename,0,20);
         return strtolower(time().uniqid()."_".$filename.".".$extension);
     }
 

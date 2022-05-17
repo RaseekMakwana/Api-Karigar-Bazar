@@ -15,7 +15,7 @@ class AdvancedSearchController extends CI_Controller {
 		$city_lat_long = $this->db->query("SELECT latitude,longitude FROM cities_master WHERE city_slug = '".$request['filter_city']."'")->row();
 		
 		$query_calculate = "(SELECT city_id FROM (SELECT city_id, latitude, longitude, (7000*ACOS(COS(RADIANS($city_lat_long->latitude)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS($city_lat_long->longitude)) + SIN(RADIANS($city_lat_long->latitude))* SIN(RADIANS(latitude)))) AS distance 
-		FROM cities_master HAVING distance < 170) a)";
+		FROM cities_master HAVING distance < 50) a)";
 
 		$query_results = $this->db->query("SELECT vm.user_id, vm.vendor_name, vm.business_name, vm.mobile, cm.city_name, vm.profile_picture  FROM vendor_master AS vm
 		LEFT JOIN cities_master AS cm ON cm.city_id=vm.city_id AND cm.status='1'
