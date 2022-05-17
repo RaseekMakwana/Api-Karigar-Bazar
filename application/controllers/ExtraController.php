@@ -35,7 +35,7 @@ class ExtraController extends CI_Controller {
 			'upload_path' => $storage_folder,
 			'file_name' => $filename,
 			'allowed_types' => 'jpg|png',
-			'max_size' => 5000,
+			'max_size' => 2048000,
 			'encrypt_name'=>TRUE
 		);
 
