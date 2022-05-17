@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login_attempt'] = 'AuthenticationController/login_attempt';
 
 // Extra
+$route['upload_document'] = 'ExtraController/upload_document';
 $route['post_your_requirement'] = 'ExtraController/post_your_requirement';
 
 // State
