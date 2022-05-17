@@ -48,8 +48,11 @@ class ExtraController extends CI_Controller {
 		}
 		else
 		{
-			echo STORAGE_CONTENT_URL.$filename;
+			$response['status'] = 1;
+			$response['message'] = FILE_UPLOADED_SUCCESSFULLY;
+			$response['data'] = STORAGE_CONTENT_URL.$filename;
 		}
+		$this->common->response($response);
 	}
 
 
