@@ -52,6 +52,15 @@ class Common {
         exit();
     }
 
+    public function preg_replace_filename($filename){
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $filename = pathinfo($filename, PATHINFO_FILENAME);
+        $ignore_spacial_char = array(" ","%20",",","@","$","%","&","\\","/",":","*","?","\"","'","<",">","|","~","`","#","^","+","=","(",")","₹","×","÷","{","}","[","]",";","!");
+        $filename = str_replace($ignore_spacial_char,"",basename($filename));
+        $filename = substr($filename,0,40);
+        return strtolower($filename.".".$extension);
+    }
+
 
 
 }

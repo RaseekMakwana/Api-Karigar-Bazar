@@ -27,7 +27,7 @@ class ExtraController extends CI_Controller {
 
 	public function upload_document()
 	{
-		$filename = time().$_FILES["userfile"]['name'];
+		$filename = $this->common->preg_replace_filename($_FILES["file_upload"]['name']);
 		$request = $this->input->post();
 		$storage_folder = STORAGE_CONTENT_PATH.$request['location'].'/';
 		// p($storage_folder);
@@ -43,7 +43,7 @@ class ExtraController extends CI_Controller {
 
 		$this->load->library('upload', $config);
 
-		if ( ! $this->upload->do_upload('userfile'))
+		if ( ! $this->upload->do_upload('file_upload'))
 		{
 			$error = array('error' => $this->upload->display_errors());
 			p($error);
