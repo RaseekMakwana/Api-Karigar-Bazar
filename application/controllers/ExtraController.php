@@ -38,6 +38,7 @@ class ExtraController extends CI_Controller {
 			'max_size' => 100,
 			'max_width' => 1024,
 			'max_height' => 768,
+			'encrypt_name'=>TRUE
 		);
 
 		$this->load->library('upload', $config);
@@ -49,7 +50,7 @@ class ExtraController extends CI_Controller {
 		}
 		else
 		{
-			echo $storage_folder.$filename;
+			echo STORAGE_CONTENT_URL.$filename;
 		}
 	}
 
