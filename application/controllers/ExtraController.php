@@ -30,7 +30,7 @@ class ExtraController extends CI_Controller {
 		$filename = time().$_FILES["userfile"]['name'];
 		$request = $this->input->post();
 		$storage_folder = STORAGE_CONTENT_PATH.$request['location'].'/';
-
+		p($storage_folder);
 		$config = array(
 			'upload_path' => $storage_folder,
 			'file_name' => $filename,
