@@ -96,6 +96,7 @@ endif;
 define("HEADER_BASIC_AUTH_USER", 'dbclmatrix');
 define("HEADER_BASIC_AUTH_PW", 'dbclmatrix@123456');
 define("STORAGE_CONTENT_PATH", "/home3/karigf2c/storage.karigarbazar.com/");
+define("STORAGE_CONTENT_URL", "https://storage.karigarbazar.com/");
 p(STORAGE_CONTENT_PATH);
 
 

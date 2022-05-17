@@ -27,11 +27,18 @@ class ExtraController extends CI_Controller {
 
 	public function upload_document()
 	{
-		$config['upload_path']          = STORAGE_CONTENT_PATH;
-		$config['allowed_types']        = 'jpg|png';
-		$config['max_size']             = 100;
-		$config['max_width']            = 1024;
-		$config['max_height']           = 768;
+		$filename = time().$_FILES["userfiles"]['name'];
+		$request = $this->input->post();
+		$storage_folder = STORAGE_CONTENT_PATH.$request['location'].'/';
+
+		$config = array(
+			'upload_path' => $storage_folder,
+			'file_name' => $filename,
+			'allowed_types' => 'jpg|png',
+			'max_size' => 100,
+			'max_width' => 1024,
+			'max_height' => 768,
+		);
 
 		$this->load->library('upload', $config);
 
@@ -42,7 +49,7 @@ class ExtraController extends CI_Controller {
 		}
 		else
 		{
-			echo "success";
+			echo $storage_folder.$filename;
 		}
 	}
 
