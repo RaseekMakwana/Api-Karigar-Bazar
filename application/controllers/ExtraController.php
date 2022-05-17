@@ -35,8 +35,7 @@ class ExtraController extends CI_Controller {
 			'upload_path' => $storage_folder,
 			'file_name' => $filename,
 			'allowed_types' => 'jpg|png',
-			'max_size' => 2048000,
-			'encrypt_name'=>TRUE
+			'max_size' => 2048000
 		);
 
 		$this->load->library('upload', $config);
