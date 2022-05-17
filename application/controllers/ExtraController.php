@@ -27,7 +27,7 @@ class ExtraController extends CI_Controller {
 
 	public function upload_document()
 	{
-		$config['upload_path']          = FCPATH.'uploads/';
+		$config['upload_path']          = STORAGE_CONTENT_PATH;
 		$config['allowed_types']        = 'jpg|png';
 		$config['max_size']             = 100;
 		$config['max_width']            = 1024;
