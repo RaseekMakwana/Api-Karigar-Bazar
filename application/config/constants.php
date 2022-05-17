@@ -102,4 +102,5 @@ define("DATA_GET_SUCCESSFULLY", 'Data get successfully');
 define("DATA_NOT_FOUND", 'Data not found');
 define("ERROR_TAG_FOUND", 'Error Tag Found');
 define("DATA_SAVED_SUCCESSFULLY", 'Data saved successfully');
+define("FILE_UPLOAD_IN_ERROR", 'File upload in error');
 define("FILE_UPLOADED_SUCCESSFULLY", 'File uploaded successfully');
