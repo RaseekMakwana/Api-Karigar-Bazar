@@ -36,8 +36,6 @@ class ExtraController extends CI_Controller {
 			'file_name' => $filename,
 			'allowed_types' => 'jpg|png',
 			'max_size' => 5000,
-			'max_width' => 1024,
-			'max_height' => 768,
 			'encrypt_name'=>TRUE
 		);
 
