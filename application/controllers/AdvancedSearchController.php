@@ -41,7 +41,6 @@ class AdvancedSearchController extends CI_Controller {
 		} else {
 			$response['status'] = 0;
 			$response['message'] = DATA_NOT_FOUND;
-			$response['data'] = $cities_data;
 		}
 		
 
