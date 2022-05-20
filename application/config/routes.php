@@ -81,7 +81,7 @@ $route['category/get_sub_category_by_like_sub_category_name'] = 'CategoryMasterC
 
 // Vendor Master
 $route['vendor/get_vendor_details_by_sub_category_slug'] = 'VendorMasterController/get_vendor_details_by_sub_category_slug';
-$route['vendor/get_vendor_details_by_vendor_id'] = 'VendorMasterController/get_vendor_details_by_vendor_id';
+$route['vendor/get_vendor_detail_by_user_id'] = 'VendorMasterController/get_vendor_detail_by_user_id';
 $route['vendor/become-a-vendor'] = 'VendorMasterController/become_a_vendor';
 $route['vendor/get_sub_category_by_user_id'] = 'VendorMasterController/get_sub_category_by_user_id';
 $route['vendor/get_cities_by_user_id'] = 'VendorMasterController/get_cities_by_user_id';
@@ -91,3 +91,7 @@ $route['vendor_profile/predefind-meta-data/stora_predefined_meta_data'] = 'Vendo
 
 // Advanced Search
 $route['search/advanced_search'] = 'AdvancedSearchController/Search';
+
+// Account
+$route['account/account_get_personal_information_section'] = 'VendorMasterController/account_get_personal_information_section';
+$route['account/account_set_personal_information_section'] = 'VendorMasterController/account_set_personal_information_section';

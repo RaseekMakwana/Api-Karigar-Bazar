@@ -76,31 +76,28 @@ class VendorMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_vendor_details_by_vendor_id() {
+	public function get_vendor_detail_by_user_id() {
 		$request = $this->input->post();
 
 		$this->common->field_required(array('user_id'),$request);
 
-		$query_results = $this->db->query("SELECT * FROM vendor_master WHERE user_id ='".$request['user_id']."' AND STATUS='1'")->result();
-
-		$response_data = array();
-		foreach($query_results as $row){
-			$collect = array(
-				"user_id" => $row->user_id,
-				"vendor_name" => $row->vendor_name,
-				"business_name" => $row->business_name,
-				"mobile" => $row->mobile,
-				"email" => $row->email,
-				"profile_picture" => $row->profile_picture
-			);
-			$response_data = array_map("strval",$collect);
-		}
+		$user_details = $this->db->query("SELECT vm.*, cm.`city_name` FROM vendor_master AS vm LEFT JOIN cities_master AS cm ON cm.`city_id`=vm.`city_id` WHERE user_id='".$request['user_id']."'")->row();
+		$response_data = array_map("strval",array(
+			"user_id" => $user_details->user_id,
+			"vendor_name" => $user_details->vendor_name,
+			"business_name" => $user_details->business_name,
+			"mobile" => $user_details->mobile,
+			"email" => $user_details->email,
+			"city_id" => $user_details->city_id,
+			"city_name" => $user_details->city_name,
+			"target_categories" => $user_details->target_categories,
+			"profile_picture" => $user_details->profile_picture
+		));
 		
 
 		$response['status'] = 1;
 		$response['message'] = DATA_GET_SUCCESSFULLY;
 		$response['data'] = $response_data;
-
 		$this->common->response($response);
 	}
 
@@ -145,6 +142,66 @@ class VendorMasterController extends CI_Controller {
 		$response['message'] = DATA_GET_SUCCESSFULLY;
 		$response['data'] = $cities_data;
 
+		$this->common->response($response);
+	}
+	
+	public function account_get_personal_information_section(){
+		$request = $this->input->post();
+		$this->common->field_required(array('user_id'),$request);
+		$verndor_detail = $this->db->query("SELECT vm.*, cm.`city_name` FROM vendor_master AS vm LEFT JOIN cities_master AS cm ON cm.`city_id`=vm.`city_id` WHERE vm.user_id='".$request['user_id']."'")->row();
+		$category_result = $this->db->query("SELECT * FROM sub_category_master WHERE `sub_category_slug` IN ('".str_replace(',','\',\'',$verndor_detail->target_categories)."')")->result();
+
+		$vendor_data = array(
+			"vendor_name" => $verndor_detail->vendor_name,
+			"mobile" => $verndor_detail->mobile,
+			"city_id" => $verndor_detail->city_id,
+			"city_name" => $verndor_detail->city_name,
+		);
+
+		$sub_category_data = array();
+		foreach($category_result as $row){
+			$sub_category_data[] = array(
+				"sub_category_slug" => $row->sub_category_slug,
+				"sub_category_name" => $row->sub_category_name
+			);
+		}
+
+		$response['status'] = 1;
+		$response['message'] = DATA_GET_SUCCESSFULLY;
+		$response['data']['vendor_data'] = $vendor_data;
+		$response['data']['sub_category_data'] = $sub_category_data;
+
+		$this->common->response($response);
+	}
+
+	public function account_set_personal_information_section(){
+		$request = $this->input->post();
+		$this->common->field_required(array('user_id','mobile_number','city_id','categories_collection'),$request);
+
+		$category_collection_array = json_decode($request['categories_collection']);
+		$collect_ids = array();
+		foreach($category_collection_array as $row){
+			$collect_ids[] = $row->id;
+		}
+
+		$target_categories = implode(",",$collect_ids);
+		$updateData = array(
+			"mobile"=> $request['mobile_number'],
+			"city_id"=> $request['city_id'],
+			"target_categories"=> $target_categories,
+		);
+		$this->db->where(array("user_id"=>$request['user_id']));
+		$this->db->update('vendor_master',$updateData);
+
+		$updateData = array(
+			"mobile"=> $request['mobile_number'],
+		);
+		$this->db->where(array("user_id"=>$request['user_id']));
+		$this->db->update('login_master',$updateData);
+
+		$response['status'] = 1;
+		$response['message'] = DATA_SAVED_SUCCESSFULLY;
+		
 		$this->common->response($response);
 	}
 
