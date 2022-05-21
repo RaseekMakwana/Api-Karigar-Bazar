@@ -59,6 +59,7 @@ $route['login_attempt'] = 'AuthenticationController/login_attempt';
 // Extra
 $route['upload_document'] = 'ExtraController/upload_document';
 $route['post_your_requirement'] = 'ExtraController/post_your_requirement';
+$route['import_lat_long'] = 'ExtraController/import_lat_long';
 
 // State
 $route['states/get_states'] = 'StateMasterController/get_states';
