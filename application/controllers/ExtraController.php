@@ -44,14 +44,15 @@ class ExtraController extends CI_Controller {
 				);
 		
 				$this->load->library('upload', $config);
-		
-				if ( ! $this->upload->do_upload('file_upload')){
-					$response['status'] = 0;
-					$response['message'] = FILE_UPLOAD_IN_ERROR;
-				} else {
+				p($request['location']."/".$filename);
+				if ($this->upload->do_upload('file_upload')){
+					
 					$response['status'] = 1;
 					$response['message'] = FILE_UPLOADED_SUCCESSFULLY;
-					$response['data'] = STORAGE_CONTENT_URL.$request['location']."/".$filename;
+					$response['data'] = $request['location']."/".$filename;
+				} else {
+					$response['status'] = 0;
+					$response['message'] = FILE_UPLOAD_IN_ERROR;
 				}
 				
 			// }

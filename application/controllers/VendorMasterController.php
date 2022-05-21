@@ -205,5 +205,24 @@ class VendorMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
+	public function upload_profile_picture(){
+		$request = $this->input->post();
+		$this->common->field_required(array('user_id','profile_picture_path'),$request);
+
+		$vendor_result = $this->db->query("SELECT `profile_picture` FROM vendor_master WHERE `user_id`='".$request['user_id']."'")->row();
+		p($vendor_result);
+		unlink(STORAGE_CONTENT_PATH.$vendor_result->profile_picture);
+
+		$updateData = array(
+			"profile_picture" => $request['profile_picture_path'],
+		);
+		$this->db->where(array("user_id"=>$request['user_id']));
+		$this->db->update('vendor_master',$updateData);
+
+		$response['status'] = 1;
+		$response['message'] = DATA_SAVED_SUCCESSFULLY;
+		$this->common->response($response);
+	}
+
 	
 }
