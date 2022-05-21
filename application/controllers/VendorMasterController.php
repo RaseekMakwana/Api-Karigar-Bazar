@@ -210,7 +210,6 @@ class VendorMasterController extends CI_Controller {
 		$this->common->field_required(array('user_id','profile_picture_path'),$request);
 
 		$vendor_result = $this->db->query("SELECT `profile_picture` FROM vendor_master WHERE `user_id`='".$request['user_id']."'")->row();
-		p($vendor_result);
 		unlink(STORAGE_CONTENT_PATH.$vendor_result->profile_picture);
 
 		$updateData = array(
