@@ -75,7 +75,7 @@ $route['vendor_type/get_vendor_type'] = 'VendorTypeMasterController/get_vendor_t
 // Category Master
 $route['category/get_list_vendor_type_with_categories'] = 'CategoryMasterController/get_list_vendor_type_with_categories';
 $route['category/get_list_vendor_type_with_category_with_sub_category'] = 'CategoryMasterController/get_list_vendor_type_with_category_with_sub_category';
-$route['category/get_list_categories_and_sub_category_by_vendor_type'] = 'CategoryMasterController/get_list_categories_and_sub_category_by_vendor_type';
+$route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'CategoryMasterController/get_list_categories_and_sub_category_by_vendor_type_id';
 $route['category/get_sub_category_by_category'] = 'CategoryMasterController/get_sub_category_by_category';
 $route['category/get_category_by_vendor_type'] = 'CategoryMasterController/get_category_by_vendor_type';
 $route['category/get_sub_category_by_like_sub_category_name'] = 'CategoryMasterController/get_sub_category_by_like_sub_category_name';
@@ -97,5 +97,9 @@ $route['search/advanced_search'] = 'AdvancedSearchController/Search';
 // Account
 $route['account/account_get_personal_information_section'] = 'VendorMasterController/account_get_personal_information_section';
 $route['account/account_set_personal_information_section'] = 'VendorMasterController/account_set_personal_information_section';
+
+// Menu
+$route['mega_menu/get_mega_menu_sub_category_and_category'] = 'MegaMenuController/get_mega_menu_sub_category_and_category';
+
 
 

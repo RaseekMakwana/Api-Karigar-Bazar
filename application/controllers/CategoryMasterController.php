@@ -116,7 +116,7 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_list_categories_and_sub_category_by_vendor_type() {
+	public function get_list_categories_and_sub_category_by_vendor_type_id() {
 		$request = $this->input->post();
 
 		$this->common->field_required(array('vendor_type_id'),$request);
