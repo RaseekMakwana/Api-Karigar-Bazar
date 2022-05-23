@@ -200,12 +200,41 @@ class CategoryMasterController extends CI_Controller {
 	}
 
 	// vendor_type_slug
-	public function get_category_by_vendor_type(){
+	public function get_category_by_vendor_type_id(){
 		$request = $this->input->post();
 
 		$this->common->field_required(array('vendor_type_id'),$request);
 
 		$query_results = $this->db->query("SELECT category_id,category_slug,category_name,picture_thumb FROM category_master WHERE vendor_type_id='".$request['vendor_type_id']."'  AND STATUS='1'")->result();
+
+		$response_data = array();
+		foreach($query_results as $row){
+			$collect = array(
+				"category_id" => $row->category_id,
+				"category_slug" => $row->category_slug,
+				"category_name" => $row->category_name,
+				"picture_thumb" => $row->picture_thumb
+			);
+			$response_data[] = array_map("strval",$collect);
+		}
+		
+
+		$response['status'] = 1;
+		$response['message'] = DATA_GET_SUCCESSFULLY;
+		$response['data'] = $response_data;
+
+		$this->common->response($response);
+	}
+
+	// vendor_type_slug
+	public function get_category_by_vendor_type_slug(){
+		$request = $this->input->post();
+
+		$this->common->field_required(array('vendor_type_slug'),$request);
+
+		$query_results = $this->db->query("SELECT category_id,category_slug,category_name,picture_thumb 
+		FROM category_master
+		WHERE vendor_type_id = (SELECT `vendor_type_id` FROM `vendor_type_master` WHERE `vendor_type_slug`='".$request['vendor_type_slug']."')  AND `status`='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){

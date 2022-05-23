@@ -47,22 +47,24 @@ class VendorMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_vendor_details_by_sub_category_slug() {
+	public function get_vendor_by_sub_category_slug() {
 		$request = $this->input->post();
 
 		$this->common->field_required(array('sub_category_slug'),$request);
 
-		$query_results = $this->db->query("SELECT * FROM vendor_master WHERE sub_category_id in (SELECT sub_category_id FROM sub_category_master WHERE sub_category_slug='".$request['sub_category_slug']."') AND STATUS='1'")->result();
+		$query_results = $this->db->query("SELECT vm.*, cm.city_name FROM vendor_master AS vm
+		LEFT JOIN cities_master AS cm ON cm.city_id=vm.city_id AND cm.status='1'
+		 WHERE FIND_IN_SET('".$request['sub_category_slug']."',target_categories) AND vm.status='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
 			$collect = array(
-				"vendor_id" => $row->vendor_id,
-				"vendor_slug" => $row->vendor_slug,
+				"user_id" => $row->user_id,
 				"vendor_name" => $row->vendor_name,
 				"business_name" => $row->business_name,
 				"mobile" => $row->mobile,
 				"email" => $row->email,
+				"city_name" => $row->city_name,
 				"profile_picture" => $row->profile_picture
 			);
 			$response_data[] = array_map("strval",$collect);
