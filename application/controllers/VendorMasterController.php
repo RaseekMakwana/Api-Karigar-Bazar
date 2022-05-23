@@ -65,7 +65,7 @@ class VendorMasterController extends CI_Controller {
 				"mobile" => $row->mobile,
 				"email" => $row->email,
 				"city_name" => $row->city_name,
-				"profile_picture" => $row->profile_picture
+				"profile_picture" => STORAGE_CONTENT_URL.$row->profile_picture
 			);
 			$response_data[] = array_map("strval",$collect);
 		}
@@ -93,7 +93,7 @@ class VendorMasterController extends CI_Controller {
 			"city_id" => $user_details->city_id,
 			"city_name" => $user_details->city_name,
 			"target_categories" => $user_details->target_categories,
-			"profile_picture" => $user_details->profile_picture
+			"profile_picture" => STORAGE_CONTENT_URL.$user_details->profile_picture
 		));
 		
 

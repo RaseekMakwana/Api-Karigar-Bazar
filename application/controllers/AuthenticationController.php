@@ -32,7 +32,7 @@ class AuthenticationController extends CI_Controller {
 					"city_id" => $user_details->city_id,
 					"city_name" => $user_details->city_name,
 					"user_type"=>$login_data->user_type,
-					"profile_picture"=>$user_details->profile_picture,
+					"profile_picture"=> STORAGE_CONTENT_URL.$user_details->profile_picture,
 					"status"=>$user_details->status
 				);
 				$response['status'] = 1;
