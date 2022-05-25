@@ -55,6 +55,32 @@ class ExtraController extends CI_Controller {
 		$this->common->response($response);
 	}
 
+
+	public function testing(){
+		// $data = file_get_contents("https://storage.karigarbazar.com/search_data.json");
+		// $data = json_decode($data);
+
+		// echo "key is - ". array_find('asdf', $data['data'], 'hobbies');// returns - key is - 1
+		// p($data);
+
+		$array = array(
+			array('name' => 'John Doe', 'email' => 'john@gmail.com'),
+			array('name' => 'Marry Lies', 'email' => 'marry@gmail.com'),
+			array('name' => 'Andrew Joe', 'email' => 'andrew@gmail.com'),
+		);
+		
+		$like = 'Ma';
+		
+		$result = array_filter($array, function ($item) use ($like) {
+			if (stripos($item['name'], $like) !== false) {
+				return true;
+			}
+			return false;
+		});
+
+		p($result);
+
+	}
 	
 
 }

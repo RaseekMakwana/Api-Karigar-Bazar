@@ -47,14 +47,14 @@ class VendorMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_vendor_by_sub_category_slug() {
+	public function get_vendor_by_tag_slug() {
 		$request = $this->input->post();
 
-		$this->common->field_required(array('sub_category_slug'),$request);
+		$this->common->field_required(array('tag_slug'),$request);
 
 		$query_results = $this->db->query("SELECT vm.*, cm.city_name FROM vendor_master AS vm
 		LEFT JOIN cities_master AS cm ON cm.city_id=vm.city_id AND cm.status='1'
-		 WHERE FIND_IN_SET('".$request['sub_category_slug']."',target_categories) AND vm.status='1'")->result();
+		 WHERE FIND_IN_SET('".$request['tag_slug']."',target_categories) AND vm.status='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
@@ -106,14 +106,14 @@ class VendorMasterController extends CI_Controller {
 	public function get_sub_category_by_user_id(){
 		$request = $this->input->post();
 		$this->common->field_required(array('user_id'),$request);
-		$query_results = $this->db->query("SELECT * FROM `sub_category_master` WHERE category_id = (SELECT category_id FROM vendor_master WHERE user_id='".$request['user_id']."') AND status='1'")->result();
+		$query_results = $this->db->query("SELECT * FROM `tags_master` WHERE category_id = (SELECT category_id FROM vendor_master WHERE user_id='".$request['user_id']."') AND status='1'")->result();
 
 		$sub_categories_data = array();
 		foreach($query_results as $row){
 			$collect = array(
-				"sub_category_slug" => $row->sub_category_slug,
-				"sub_category_id" => $row->sub_category_id,
-				"sub_category_name" => $row->sub_category_name,
+				"tag_slug" => $row->tag_slug,
+				"tag_id" => $row->tag_id,
+				"tag_name" => $row->tag_name,
 				"picture_thumb" => $row->picture_thumb
 			);
 			$sub_categories_data[] = array_map("strval",$collect);
@@ -151,7 +151,7 @@ class VendorMasterController extends CI_Controller {
 		$request = $this->input->post();
 		$this->common->field_required(array('user_id'),$request);
 		$verndor_detail = $this->db->query("SELECT vm.*, cm.`city_name` FROM vendor_master AS vm LEFT JOIN cities_master AS cm ON cm.`city_id`=vm.`city_id` WHERE vm.user_id='".$request['user_id']."'")->row();
-		$category_result = $this->db->query("SELECT * FROM sub_category_master WHERE `sub_category_slug` IN ('".str_replace(',','\',\'',$verndor_detail->target_categories)."')")->result();
+		$category_result = $this->db->query("SELECT * FROM tags_master WHERE `tag_slug` IN ('".str_replace(',','\',\'',$verndor_detail->target_categories)."')")->result();
 
 		$vendor_data = array(
 			"vendor_name" => $verndor_detail->vendor_name,
@@ -163,8 +163,8 @@ class VendorMasterController extends CI_Controller {
 		$sub_category_data = array();
 		foreach($category_result as $row){
 			$sub_category_data[] = array(
-				"sub_category_slug" => $row->sub_category_slug,
-				"sub_category_name" => $row->sub_category_name
+				"tag_slug" => $row->tag_slug,
+				"tag_name" => $row->tag_name
 			);
 		}
 

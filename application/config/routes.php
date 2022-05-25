@@ -60,6 +60,11 @@ $route['login_attempt'] = 'AuthenticationController/login_attempt';
 $route['upload_document'] = 'ExtraController/upload_document';
 $route['post_your_requirement'] = 'ExtraController/post_your_requirement';
 $route['import_lat_long'] = 'ExtraController/import_lat_long';
+$route['testing'] = 'ExtraController/testing';
+
+// Cron
+$route['json_filter_search_data'] = 'CronController/testing';
+
 
 // State
 $route['states/get_states'] = 'StateMasterController/get_states';
@@ -79,10 +84,10 @@ $route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'Cat
 $route['category/get_sub_category_by_category'] = 'CategoryMasterController/get_sub_category_by_category';
 $route['category/get_category_by_vendor_type_id'] = 'CategoryMasterController/get_category_by_vendor_type_id';
 $route['category/get_category_by_vendor_type_slug'] = 'CategoryMasterController/get_category_by_vendor_type_slug';
-$route['category/get_sub_category_by_like_sub_category_name'] = 'CategoryMasterController/get_sub_category_by_like_sub_category_name';
+$route['category/get_search_keywords_filter'] = 'CategoryMasterController/get_search_keywords_filter';
 
 // Vendor Master
-$route['vendor/get_vendor_by_sub_category_slug'] = 'VendorMasterController/get_vendor_by_sub_category_slug';
+$route['vendor/get_vendor_by_tag_slug'] = 'VendorMasterController/get_vendor_by_tag_slug';
 $route['vendor/get_vendor_detail_by_user_id'] = 'VendorMasterController/get_vendor_detail_by_user_id';
 $route['vendor/become-a-vendor'] = 'VendorMasterController/become_a_vendor';
 $route['vendor/get_sub_category_by_user_id'] = 'VendorMasterController/get_sub_category_by_user_id';
