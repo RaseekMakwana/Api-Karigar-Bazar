@@ -8,72 +8,66 @@ class VendorMasterController extends CI_Controller {
 		// $this->common->header_authentication();
 	}
 
-	public function become_a_vendor(){
+	public function get_vendor_master_data() {
 		$request = $this->input->post();
-		$this->common->field_required(array('business_name','contact_person_name','mobile_no','email_address','password','vendor_type_id','category_id','state_id','city_id'),$request);
 
-		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
+		$this->common->field_required(array('filter_keyword','filter_type'),$request);
 
-		if(empty($check_user_exist->number_of_records)){
-			$user_id = time().uniqid();
-			$insertData = array(
-				"user_id" => $user_id,
-				"vendor_name" => $request['contact_person_name'],
-				"business_name" => $request['business_name'],
-				"mobile" => $request['mobile_no'],
-				"email" => $request['email_address'],
-				"vendor_type_id" => $request['vendor_type_id'],
-				"category_id" => $request['category_id'],
-				"state_id" => $request['state_id'],
-				"city_id" => $request['city_id']
-			);
-			$this->db->insert('vendor_master',$insertData);
-
-			$insertData = array(
-				"user_id" => $user_id,
-				"mobile" => $request['mobile_no'],
-				"password" => $request['password'],
-			);
-			$this->db->insert('login_master',$insertData);
-
-			$response['status'] = 1;
-			$response['message'] = DATA_SAVED_SUCCESSFULLY;
-		} else {
-			$response['status'] = 0;
-			$response['message'] = ERROR_TAG_FOUND;
-			$response['data'] = "mobile_no_already_exist";
+		$query_string = "";
+		if($request['filter_type'] == "category"){
+			$get_category_row = $this->db->query("SELECT category_id FROM category_master WHERE category_slug = '".$request['filter_keyword']."'")->row();
+			$query_string .= " AND vm.category_id = '".$get_category_row->category_id."'";
+		} else  if ($request['filter_type'] == "tag"){
+			$query_string .= " AND FIND_IN_SET('".$request['filter_keyword']."',target_categories)";
 		}
-		
-		$this->common->response($response);
-	}
-
-	public function get_vendor_by_tag_slug() {
-		$request = $this->input->post();
-
-		$this->common->field_required(array('tag_slug'),$request);
 
 		$query_results = $this->db->query("SELECT vm.*, cm.city_name FROM vendor_master AS vm
 		LEFT JOIN cities_master AS cm ON cm.city_id=vm.city_id AND cm.status='1'
-		 WHERE FIND_IN_SET('".$request['tag_slug']."',target_categories) AND vm.status='1'")->result();
+		 WHERE 1=1 $query_string  AND vm.status='1'")->result();
 
-		$response_data = array();
-		foreach($query_results as $row){
-			$collect = array(
-				"user_id" => $row->user_id,
-				"vendor_name" => $row->vendor_name,
-				"business_name" => $row->business_name,
-				"mobile" => $row->mobile,
-				"email" => $row->email,
-				"city_name" => $row->city_name,
-				"profile_picture" => STORAGE_CONTENT_URL.$row->profile_picture
-			);
-			$response_data[] = array_map("strval",$collect);
+		$vendor_data = array();
+		$tag_data = array();
+		if(!empty($query_results)){
+
+
+			if($request['filter_type'] == "category"){
+				$tag_query_results = $this->db->query("SELECT tag_id, tag_slug, tag_name FROM tags_master WHERE category_id=(SELECT category_id FROM category_master where category_slug='".$request['filter_keyword']."') AND status='1'")->result();
+
+				foreach($tag_query_results as $row){
+					$collect = array(
+						"tag_id" => $row->tag_id,
+						"tag_slug" => $row->tag_slug,
+						"tag_name" => $row->tag_name,
+					);
+					$tag_data[] = array_map("strval",$collect);
+				}
+			}
+			
+
+			foreach($query_results as $row){
+				$collect = array(
+					"user_id" => $row->user_id,
+					"vendor_name" => $row->vendor_name,
+					"business_name" => $row->business_name,
+					"mobile" => $row->mobile,
+					"email" => $row->email,
+					"city_name" => $row->city_name,
+					"profile_picture" => STORAGE_CONTENT_URL.$row->profile_picture
+				);
+				$vendor_data[] = array_map("strval",$collect);
+			}
+			$response['status'] = 1;
+			$response['message'] = DATA_GET_SUCCESSFULLY;
+			$response['data']['vendor_data'] = $vendor_data;
+			$response['data']['tag_data'] = $tag_data;
+		} else {
+			$response['status'] = 0;
+			$response['message'] = DATA_NOT_FOUND;
 		}
 		
+		
 
-		$response['status'] = 1;
-		$response['message'] = DATA_GET_SUCCESSFULLY;
-		$response['data'] = $response_data;
+		
 
 		$this->common->response($response);
 	}
@@ -103,7 +97,7 @@ class VendorMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_sub_category_by_user_id(){
+	public function get_tag_by_user_id(){
 		$request = $this->input->post();
 		$this->common->field_required(array('user_id'),$request);
 		$query_results = $this->db->query("SELECT * FROM `tags_master` WHERE category_id = (SELECT category_id FROM vendor_master WHERE user_id='".$request['user_id']."') AND status='1'")->result();
@@ -160,9 +154,9 @@ class VendorMasterController extends CI_Controller {
 			"city_name" => $verndor_detail->city_name,
 		);
 
-		$sub_category_data = array();
+		$tag_data = array();
 		foreach($category_result as $row){
-			$sub_category_data[] = array(
+			$tag_data[] = array(
 				"tag_slug" => $row->tag_slug,
 				"tag_name" => $row->tag_name
 			);
@@ -171,7 +165,7 @@ class VendorMasterController extends CI_Controller {
 		$response['status'] = 1;
 		$response['message'] = DATA_GET_SUCCESSFULLY;
 		$response['data']['vendor_data'] = $vendor_data;
-		$response['data']['sub_category_data'] = $sub_category_data;
+		$response['data']['tag_data'] = $tag_data;
 
 		$this->common->response($response);
 	}

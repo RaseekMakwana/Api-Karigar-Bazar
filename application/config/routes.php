@@ -79,18 +79,18 @@ $route['vendor_type/get_vendor_type'] = 'VendorTypeMasterController/get_vendor_t
 
 // Category Master
 $route['category/get_list_vendor_type_with_categories'] = 'CategoryMasterController/get_list_vendor_type_with_categories';
-$route['category/get_list_vendor_type_with_category_with_sub_category'] = 'CategoryMasterController/get_list_vendor_type_with_category_with_sub_category';
-$route['category/get_list_categories_and_sub_category_by_vendor_type_id'] = 'CategoryMasterController/get_list_categories_and_sub_category_by_vendor_type_id';
-$route['category/get_sub_category_by_category'] = 'CategoryMasterController/get_sub_category_by_category';
+$route['category/get_list_vendor_type_with_category_with_tag'] = 'CategoryMasterController/get_list_vendor_type_with_category_with_tag';
+$route['category/get_list_categories_and_tag_by_vendor_type_id'] = 'CategoryMasterController/get_list_categories_and_tag_by_vendor_type_id';
+$route['category/get_tag_with_vendor_by_category'] = 'CategoryMasterController/get_tag_with_vendor_by_category';
 $route['category/get_category_by_vendor_type_id'] = 'CategoryMasterController/get_category_by_vendor_type_id';
 $route['category/get_category_by_vendor_type_slug'] = 'CategoryMasterController/get_category_by_vendor_type_slug';
 $route['category/get_search_keywords_filter'] = 'CategoryMasterController/get_search_keywords_filter';
 
 // Vendor Master
-$route['vendor/get_vendor_by_tag_slug'] = 'VendorMasterController/get_vendor_by_tag_slug';
+$route['vendor/get_vendor_master_data'] = 'VendorMasterController/get_vendor_master_data';
 $route['vendor/get_vendor_detail_by_user_id'] = 'VendorMasterController/get_vendor_detail_by_user_id';
-$route['vendor/become-a-vendor'] = 'VendorMasterController/become_a_vendor';
-$route['vendor/get_sub_category_by_user_id'] = 'VendorMasterController/get_sub_category_by_user_id';
+$route['vendor/vendor_registration'] = 'VendorMasterController/vendor_registration';
+$route['vendor/get_tag_by_user_id'] = 'VendorMasterController/get_tag_by_user_id';
 $route['vendor/get_cities_by_user_id'] = 'VendorMasterController/get_cities_by_user_id';
 $route['vendor/upload_profile_picture'] = 'VendorMasterController/upload_profile_picture';
 
@@ -105,7 +105,7 @@ $route['account/account_get_personal_information_section'] = 'VendorMasterContro
 $route['account/account_set_personal_information_section'] = 'VendorMasterController/account_set_personal_information_section';
 
 // Menu
-$route['mega_menu/get_mega_menu_sub_category_and_category'] = 'MegaMenuController/get_mega_menu_sub_category_and_category';
+$route['mega_menu/get_mega_menu_tag_and_category'] = 'MegaMenuController/get_mega_menu_tag_and_category';
 
 
 

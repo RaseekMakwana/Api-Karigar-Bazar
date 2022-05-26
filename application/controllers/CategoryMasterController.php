@@ -50,7 +50,7 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_list_vendor_type_with_category_with_sub_category() {
+	public function get_list_vendor_type_with_category_with_tag() {
 		$request = $this->input->post();
 
 		$query_results = $this->db->query("SELECT vtm.vendor_type_slug,vtm.vendor_type_id,vtm.`vendor_type_name`,vtm.`picture_thumb`,cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`tag_slug`,scm.`tag_id`,scm.`tag_name`
@@ -68,9 +68,9 @@ class CategoryMasterController extends CI_Controller {
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_slug'] = $row->category_slug;
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_id'] = $row->category_id;
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_name'] = $row->category_name;
-			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['sub_category_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
-			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['sub_category_data'][$row->tag_id]['tag_id'] = $row->tag_id;
-			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['sub_category_data'][$row->tag_id]['tag_name'] = $row->tag_name;
+			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
+			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->tag_id]['tag_id'] = $row->tag_id;
+			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->tag_id]['tag_name'] = $row->tag_name;
 
 		}
 		
@@ -81,7 +81,7 @@ class CategoryMasterController extends CI_Controller {
 			$level_one = array();
 			foreach($row['categories_data'] as $row1){
 				$level_two = array();
-				foreach($row1['sub_category_data'] as $row2){
+				foreach($row1['tag_data'] as $row2){
 					if(!empty($row2['tag_id'])){
 						$level_two[] = array(
 							"tag_slug"=> $row2['tag_slug'],
@@ -95,7 +95,7 @@ class CategoryMasterController extends CI_Controller {
 					"category_slug"=> $row1['category_slug'],
 					"category_id"=> $row1['category_id'],
 					"category_name"=> $row1['category_name'],
-					"sub_category_data"=> $level_two,
+					"tag_data"=> $level_two,
 				);
 			}
 
@@ -116,7 +116,7 @@ class CategoryMasterController extends CI_Controller {
 		$this->common->response($response);
 	}
 
-	public function get_list_categories_and_sub_category_by_vendor_type_id() {
+	public function get_list_categories_and_tag_by_vendor_type_id() {
 		$request = $this->input->post();
 
 		$this->common->field_required(array('vendor_type_id'),$request);
@@ -131,9 +131,9 @@ class CategoryMasterController extends CI_Controller {
 			$arrange_data[$row->category_id]['category_slug'] = $row->category_slug;
 			$arrange_data[$row->category_id]['category_id'] = $row->category_id;
 			$arrange_data[$row->category_id]['category_name'] = $row->category_name;
-			$arrange_data[$row->category_id]['sub_category_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
-			$arrange_data[$row->category_id]['sub_category_data'][$row->tag_id]['tag_id'] = $row->tag_id;
-			$arrange_data[$row->category_id]['sub_category_data'][$row->tag_id]['tag_name'] = $row->tag_name;
+			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
+			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_id'] = $row->tag_id;
+			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_name'] = $row->tag_name;
 
 		}
 		
@@ -141,7 +141,7 @@ class CategoryMasterController extends CI_Controller {
 		$response_data = array();
 		foreach($arrange_data as $row){
 			$level_two = array();
-			foreach($row['sub_category_data'] as $row1){
+			foreach($row['tag_data'] as $row1){
 				if(!empty($row1['tag_id'])){
 					$level_two[] = array(
 						"tag_slug"=> $row1['tag_slug'],
@@ -155,7 +155,7 @@ class CategoryMasterController extends CI_Controller {
 				"category_slug"=> $row['category_slug'],
 				"category_id"=> $row['category_id'],
 				"category_name"=> $row['category_name'],
-				"sub_category_data"=> $level_two,
+				"tag_data"=> $level_two,
 			);
 		}
 
@@ -167,16 +167,16 @@ class CategoryMasterController extends CI_Controller {
 	}
 
 	//  Search category_id, category_slug
-	public function get_sub_category_by_category() {
+	public function get_tag_with_vendor_by_category() {
 		$request = $this->input->post();
 
-		$this->common->field_required(array('action','value'),$request);
+		$this->common->field_required(array('action','keyword'),$request);
 
 		$query_string = "";
 		if($request['action'] == "slug"){
-			$query_string .= " category_slug='".$request['value']."'";
+			$query_string .= " category_slug='".$request['keyword']."'";
 		} else {
-			$query_string .= " category_id='".$request['value']."'";
+			$query_string .= " category_id='".$request['keyword']."'";
 		}
 		$query_results = $this->db->query("SELECT * FROM tags_master WHERE category_id in (SELECT category_id FROM category_master where $query_string AND status='1') AND status='1'")->result();
 

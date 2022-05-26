@@ -53,4 +53,43 @@ class AuthenticationController extends CI_Controller {
 		$this->common->response($response);
 	}
 
+	public function vendor_registration(){
+		$request = $this->input->post();
+		$this->common->field_required(array('business_name','contact_person_name','mobile_no','email_address','password','vendor_type_id','category_id','state_id','city_id'),$request);
+
+		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
+
+		if(empty($check_user_exist->number_of_records)){
+			$user_id = time().uniqid();
+			$insertData = array(
+				"user_id" => $user_id,
+				"vendor_name" => $request['contact_person_name'],
+				"business_name" => $request['business_name'],
+				"mobile" => $request['mobile_no'],
+				"email" => $request['email_address'],
+				"vendor_type_id" => $request['vendor_type_id'],
+				"category_id" => $request['category_id'],
+				"state_id" => $request['state_id'],
+				"city_id" => $request['city_id']
+			);
+			$this->db->insert('vendor_master',$insertData);
+
+			$insertData = array(
+				"user_id" => $user_id,
+				"mobile" => $request['mobile_no'],
+				"password" => $request['password'],
+			);
+			$this->db->insert('login_master',$insertData);
+
+			$response['status'] = 1;
+			$response['message'] = DATA_SAVED_SUCCESSFULLY;
+		} else {
+			$response['status'] = 0;
+			$response['message'] = ERROR_TAG_FOUND;
+			$response['data'] = "mobile_no_already_exist";
+		}
+		
+		$this->common->response($response);
+	}
+
 }

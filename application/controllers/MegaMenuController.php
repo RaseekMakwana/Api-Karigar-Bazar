@@ -8,7 +8,7 @@ class MegaMenuController extends CI_Controller {
 		// $this->common->header_authentication();
 	}
 	
-	public function get_mega_menu_sub_category_and_category(){
+	public function get_mega_menu_tag_and_category(){
 		$request = $this->input->post();
 
 		$this->common->field_required(array('vendor_type_slug'),$request);
@@ -23,9 +23,9 @@ class MegaMenuController extends CI_Controller {
 			$arrange_data[$row->category_id]['category_slug'] = $row->category_slug;
 			$arrange_data[$row->category_id]['category_id'] = $row->category_id;
 			$arrange_data[$row->category_id]['category_name'] = $row->category_name;
-			$arrange_data[$row->category_id]['sub_category_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
-			$arrange_data[$row->category_id]['sub_category_data'][$row->tag_id]['tag_id'] = $row->tag_id;
-			$arrange_data[$row->category_id]['sub_category_data'][$row->tag_id]['tag_name'] = $row->tag_name;
+			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
+			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_id'] = $row->tag_id;
+			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_name'] = $row->tag_name;
 
 		}
 		
@@ -33,7 +33,7 @@ class MegaMenuController extends CI_Controller {
 		$response_data = array();
 		foreach($arrange_data as $row){
 			$level_two = array();
-			foreach($row['sub_category_data'] as $row1){
+			foreach($row['tag_data'] as $row1){
 				if(!empty($row1['tag_id'])){
 					$level_two[] = array(
 						"tag_slug"=> $row1['tag_slug'],
@@ -47,7 +47,7 @@ class MegaMenuController extends CI_Controller {
 				"category_slug"=> $row['category_slug'],
 				"category_id"=> $row['category_id'],
 				"category_name"=> $row['category_name'],
-				"sub_category_data"=> $level_two,
+				"tag_data"=> $level_two,
 			);
 		}
 
