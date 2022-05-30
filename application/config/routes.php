@@ -108,4 +108,11 @@ $route['account/account_set_personal_information_section'] = 'VendorMasterContro
 $route['mega_menu/get_mega_menu_tag_and_category'] = 'MegaMenuController/get_mega_menu_tag_and_category';
 
 
+// ================================================================
+// ================================================================
+$route['admin/category/create'] = 'admin/CategoryController/create';
+
+
+
+
 

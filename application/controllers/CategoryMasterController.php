@@ -36,7 +36,7 @@ class CategoryMasterController extends CI_Controller {
 					"category_id" => $row1->category_id,
 					"category_slug" => $row1->category_slug,
 					"category_name" => $row1->category_name,
-					"picture_thumb" => $row1->picture_thumb
+					"picture_thumb" => STORAGE_CONTENT_URL.$row1->picture_thumb
 				));
 			}
 			// $response_data[$i]['category_data'] = $row;
@@ -242,7 +242,7 @@ class CategoryMasterController extends CI_Controller {
 				"category_id" => $row->category_id,
 				"category_slug" => $row->category_slug,
 				"category_name" => $row->category_name,
-				"picture_thumb" => $row->picture_thumb
+				"picture_thumb" => STORAGE_CONTENT_URL.$row->picture_thumb
 			);
 			$response_data[] = array_map("strval",$collect);
 		}

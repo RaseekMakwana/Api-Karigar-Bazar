@@ -51,7 +51,7 @@ class AdvancedSearchController extends CI_Controller {
 					"business_name" => $row->business_name,
 					"mobile" => $row->mobile,
 					"city_name" => $row->city_name,
-					"profile_picture" => $row->profile_picture,
+					"profile_picture" => STORAGE_CONTENT_URL.$row->profile_picture,
 				);
 				$vendor_data[] = array_map("strval",$collect);
 			}
