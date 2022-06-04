@@ -13,7 +13,7 @@ class CategoryMasterController extends CI_Controller {
 
 		$query_results = $this->db->query("SELECT cm.category_id,cm.category_slug, cm.category_name, vtm.vendor_type_slug,vtm.vendor_type_name,vtm.picture_thumb,cm.picture_thumb 
 											FROM category_master AS cm
-											LEFT JOIN `vendor_type_master` AS vtm ON vtm.`vendor_type_id`=cm.`vendor_type_id` WHERE cm.status='1' AND vtm.status='1'")->result();
+											LEFT JOIN `vendor_type_master` AS vtm ON vtm.`vendor_type_id`=cm.`vendor_type_id` WHERE cm.status='1' AND vtm.status='1' ORDER BY vendor_type_slug ASC")->result();
 
 
 		$arrangeData = array();
