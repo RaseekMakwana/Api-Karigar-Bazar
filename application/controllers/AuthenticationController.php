@@ -94,7 +94,7 @@ class AuthenticationController extends CI_Controller {
 
 	public function direct_vendor_registration(){
 		$request = $this->input->post();
-		$this->common->field_required(array('business_name','contact_person_name','mobile_no','email_address','password','occupation','state','city'),$request);
+		$this->common->field_required(array('business_name','contact_person_name','mobile_no','password','occupation','state','city'),$request);
 
 		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
 
