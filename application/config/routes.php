@@ -90,6 +90,7 @@ $route['category/get_search_keywords_filter'] = 'CategoryMasterController/get_se
 $route['vendor/get_vendor_master_data'] = 'VendorMasterController/get_vendor_master_data';
 $route['vendor/get_vendor_detail_by_user_id'] = 'VendorMasterController/get_vendor_detail_by_user_id';
 $route['vendor/vendor_registration'] = 'AuthenticationController/vendor_registration';
+$route['vendor/direct_vendor_registration'] = 'AuthenticationController/direct_vendor_registration';
 $route['vendor/get_tag_by_user_id'] = 'VendorMasterController/get_tag_by_user_id';
 $route['vendor/get_cities_by_user_id'] = 'VendorMasterController/get_cities_by_user_id';
 $route['vendor/upload_profile_picture'] = 'VendorMasterController/upload_profile_picture';
