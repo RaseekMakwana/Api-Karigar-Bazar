@@ -11,28 +11,29 @@ class VendorMasterController extends CI_Controller {
 	public function get_vendor_master_data() {
 		$request = $this->input->post();
 
-		$this->common->field_required(array('filter_keyword','filter_type'),$request);
+		$this->common->field_required(array('filter_type', 'filter_sagment_one', 'filter_sagment_two'),$request);
 
 		$query_string = "";
 		if($request['filter_type'] == "category"){
-			$get_category_row = $this->db->query("SELECT category_id FROM category_master WHERE category_slug = '".$request['filter_keyword']."'")->row();
+			$get_category_row = $this->db->query("SELECT category_id FROM category_master WHERE category_slug = '".$request['filter_sagment_two']."'")->row();
 			$query_string .= " AND vm.category_id = '".$get_category_row->category_id."'";
 		} else  if ($request['filter_type'] == "tag"){
-			$query_string .= " AND FIND_IN_SET('".$request['filter_keyword']."',target_categories)";
+			$query_string .= " AND FIND_IN_SET('".$request['filter_sagment_two']."',target_categories)";
 		}
 
 		$query_results = $this->db->query("SELECT vm.*, cm.city_name FROM vendor_master AS vm
 		LEFT JOIN cities_master AS cm ON cm.city_id=vm.city_id AND cm.status='1'
 		 WHERE 1=1 $query_string  AND vm.status='1'")->result();
 
-		$vendor_data = array();
+		
 		$tag_data = array();
-		if(!empty($query_results)){
-
-
+		$tag_query_results = "";
 			if($request['filter_type'] == "category"){
-				$tag_query_results = $this->db->query("SELECT tag_id, tag_slug, tag_name FROM tags_master WHERE category_id=(SELECT category_id FROM category_master where category_slug='".$request['filter_keyword']."') AND status='1'")->result();
-
+				$tag_query_results = $this->db->query("SELECT tag_id, tag_slug, tag_name FROM tags_master WHERE category_id=(SELECT category_id FROM category_master where category_slug='".$request['filter_sagment_two']."') AND status='1'")->result();
+			} else if($request['filter_type'] == "tag"){
+				$tag_query_results = $this->db->query("SELECT tag_id, tag_slug, tag_name FROM tags_master WHERE category_id=(SELECT category_id FROM category_master where category_slug='".$request['filter_sagment_one']."') AND status='1'")->result();
+			}
+			if(!empty($tag_query_results)){
 				foreach($tag_query_results as $row){
 					$collect = array(
 						"tag_id" => $row->tag_id,
@@ -41,9 +42,14 @@ class VendorMasterController extends CI_Controller {
 					);
 					$tag_data[] = array_map("strval",$collect);
 				}
+				$response['data']['tag_data'] = $tag_data;
+			} else {
+				$response['data']['tag_data'] = array();
 			}
 			
 
+		$vendor_data = array();
+		if(!empty($query_results)){
 			foreach($query_results as $row){
 				$collect = array(
 					"user_id" => $row->user_id,
@@ -56,19 +62,15 @@ class VendorMasterController extends CI_Controller {
 				);
 				$vendor_data[] = array_map("strval",$collect);
 			}
-			$response['status'] = 1;
-			$response['message'] = DATA_GET_SUCCESSFULLY;
 			$response['data']['vendor_data'] = $vendor_data;
-			$response['data']['tag_data'] = $tag_data;
+			
 		} else {
-			$response['status'] = 0;
-			$response['message'] = DATA_NOT_FOUND;
+			$response['data']['vendor_data'] = array();
 		}
 		
+		$response['status'] = 1;
+		$response['message'] = DATA_GET_SUCCESSFULLY;
 		
-
-		
-
 		$this->common->response($response);
 	}
 
