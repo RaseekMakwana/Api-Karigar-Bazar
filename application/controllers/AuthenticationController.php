@@ -55,7 +55,7 @@ class AuthenticationController extends CI_Controller {
 
 	public function vendor_registration(){
 		$request = $this->input->post();
-		$this->common->field_required(array('business_name','contact_person_name','mobile_no','email_address','password','vendor_type_id','category_id','state_id','city_id'),$request);
+		$this->common->field_required(array('contact_person_name','mobile_no','password','vendor_type_id','category_id','state_id','city_id'),$request);
 
 		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
 
@@ -64,9 +64,9 @@ class AuthenticationController extends CI_Controller {
 			$insertData = array(
 				"user_id" => $user_id,
 				"vendor_name" => $request['contact_person_name'],
-				"business_name" => $request['business_name'],
+				// "business_name" => $request['business_name'],
 				"mobile" => $request['mobile_no'],
-				"email" => $request['email_address'],
+				// "email" => $request['email_address'],
 				"vendor_type_id" => $request['vendor_type_id'],
 				"category_id" => $request['category_id'],
 				"state_id" => $request['state_id'],
@@ -94,7 +94,7 @@ class AuthenticationController extends CI_Controller {
 
 	public function direct_vendor_registration(){
 		$request = $this->input->post();
-		$this->common->field_required(array('business_name','contact_person_name','mobile_no','password','occupation','state','city'),$request);
+		$this->common->field_required(array('contact_person_name','mobile_no','password','occupation','state','city'),$request);
 
 		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
 
@@ -103,22 +103,15 @@ class AuthenticationController extends CI_Controller {
 			$insertData = array(
 				"user_id" => $user_id,
 				"vendor_name" => $request['contact_person_name'],
-				"business_name" => $request['business_name'],
+				// "business_name" => $request['business_name'],
 				"mobile" => $request['mobile_no'],
-				"email" => $request['email_address'],
+				// "email" => $request['email_address'],
 				"occupation" => $request['occupation'],
 				"state" => $request['state'],
 				"city" => $request['city'],
 				"password" => $request['password']
 			);
 			$this->db->insert('data_vendor_master',$insertData);
-
-			$insertData = array(
-				"user_id" => $user_id,
-				"mobile" => $request['mobile_no'],
-				"password" => $request['password'],
-			);
-			$this->db->insert('login_master',$insertData);
 
 			$response['status'] = 1;
 			$response['message'] = DATA_SAVED_SUCCESSFULLY;
