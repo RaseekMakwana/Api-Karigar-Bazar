@@ -66,14 +66,13 @@ class Common {
     }
 
     public function send_mail($from_email, $to_email, $subject, $message){
-        $ci =& get_instance();
-        $ci->load->library('email');
-
-        $this->email->from($from_email);
-        $this->email->to($to_email);
-        $this->email->subject($subject);
-        $this->email->message($message);
-        $this->email->send();
+        $CI =& get_instance();
+        $CI->load->library('email');               
+        $CI->email->from($from_email, 'test');
+        $CI->email->to($to_email);
+        $CI->email->subject($subject);
+        $CI->email->message($message);
+        $CI->email->send();
     }
 
 
