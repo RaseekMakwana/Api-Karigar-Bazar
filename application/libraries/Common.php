@@ -65,6 +65,17 @@ class Common {
         return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-'));
     }
 
+    public function send_mail($from_email, $to_email, $subject, $message){
+        $ci =& get_instance();
+        $ci->load->library('email');
+
+        $this->email->from($from_email);
+        $this->email->to($to_email);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        $this->email->send();
+    }
+
 
 
 }

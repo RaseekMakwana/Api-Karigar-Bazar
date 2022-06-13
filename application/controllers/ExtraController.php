@@ -55,6 +55,10 @@ class ExtraController extends CI_Controller {
 		$this->common->response($response);
 	}
 
+	public function testmail(){
+		$this->common->send_mail("makwanaraseek@gmail.com","makwanaraseek@gmail.com","Test Subject","Test Mail Message");
+	}
+
 
 	public function testing(){
 		// $data = file_get_contents("https://storage.karigarbazar.com/search_data.json");
