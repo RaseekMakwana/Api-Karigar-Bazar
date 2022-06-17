@@ -77,7 +77,7 @@ class AuthenticationController extends CI_Controller {
 			$insertData = array(
 				"user_id" => $user_id,
 				"mobile" => $request['mobile_no'],
-				"password" => $request['password'],
+				"password" => md5($request['password']),
 			);
 			$this->db->insert('login_master',$insertData);
 
@@ -109,7 +109,7 @@ class AuthenticationController extends CI_Controller {
 				"occupation" => $request['occupation'],
 				"state" => $request['state'],
 				"city" => $request['city'],
-				"password" => md5($request['password'])
+				"password" => $request['password']
 			);
 			$this->db->insert('data_vendor_master',$insertData);
 
