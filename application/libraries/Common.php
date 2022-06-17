@@ -68,7 +68,7 @@ class Common {
     public function send_mail($from_email, $to_email, $subject, $message){
         $CI =& get_instance();
         $CI->load->library('email');               
-        $CI->email->from($from_email, 'test');
+        $CI->email->from($from_email, 'no-replay');
         $CI->email->to($to_email);
         $CI->email->subject($subject);
         $CI->email->message($message);

@@ -16,7 +16,7 @@ class AuthenticationController extends CI_Controller {
 		$password = base64_decode($request['password']);
 
 		$response = array();
-		$login_data = $this->db->query("SELECT * FROM login_master WHERE mobile='".$mobile_number."' AND password='".$password."' AND status='1'")->row();
+		$login_data = $this->db->query("SELECT * FROM login_master WHERE mobile='".$mobile_number."' AND password='".md5($password)."' AND status='1'")->row();
 		if(!empty($login_data)){
 			$user_details = $this->db->query("SELECT vm.*, cm.`city_name` FROM vendor_master AS vm LEFT JOIN cities_master AS cm ON cm.`city_id`=vm.`city_id` WHERE mobile='".$mobile_number."' ")->row();
 			if(!empty($user_details)){
@@ -109,7 +109,7 @@ class AuthenticationController extends CI_Controller {
 				"occupation" => $request['occupation'],
 				"state" => $request['state'],
 				"city" => $request['city'],
-				"password" => $request['password']
+				"password" => md5($request['password'])
 			);
 			$this->db->insert('data_vendor_master',$insertData);
 
