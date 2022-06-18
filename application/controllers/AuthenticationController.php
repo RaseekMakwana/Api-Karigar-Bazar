@@ -109,6 +109,7 @@ class AuthenticationController extends CI_Controller {
 				"occupation" => $request['occupation'],
 				"state" => $request['state'],
 				"city" => $request['city'],
+				"area" => $request['area'],
 				"password" => $request['password']
 			);
 			$this->db->insert('data_vendor_master',$insertData);
