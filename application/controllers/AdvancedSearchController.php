@@ -32,7 +32,7 @@ class AdvancedSearchController extends CI_Controller {
 		$vendor_data = array();
 		if(!empty($query_results)){
 			
-			$tag_data = array();
+			$service_data = array();
 			$tag_result = "";
 			if($request['filter_type'] == "c"){
 				$tag_result = $this->db->query("SELECT service_id, service_slug, service_name FROM service_master WHERE category_id='".$get_category_row->category_id."' AND status='1'")->result();
@@ -46,7 +46,7 @@ class AdvancedSearchController extends CI_Controller {
 					"service_slug" => $row->service_slug,
 					"service_name" => $row->service_name
 				);
-				$tag_data[] = array_map("strval",$collect);
+				$service_data[] = array_map("strval",$collect);
 			}
 
 			foreach($query_results as $row){
@@ -64,7 +64,7 @@ class AdvancedSearchController extends CI_Controller {
 			$response['status'] = 1;
 			$response['message'] = DATA_GET_SUCCESSFULLY;
 			$response['data']['vendor_data'] = $vendor_data;
-			$response['data']['tag_data'] = $tag_data;
+			$response['data']['service_data'] = $service_data;
 		} else {
 			$response['status'] = 0;
 			$response['message'] = DATA_NOT_FOUND;

@@ -23,9 +23,9 @@ class MegaMenuController extends CI_Controller {
 			$arrange_data[$row->category_id]['category_slug'] = $row->category_slug;
 			$arrange_data[$row->category_id]['category_id'] = $row->category_id;
 			$arrange_data[$row->category_id]['category_name'] = $row->category_name;
-			$arrange_data[$row->category_id]['tag_data'][$row->service_id]['service_slug'] = $row->service_slug;
-			$arrange_data[$row->category_id]['tag_data'][$row->service_id]['service_id'] = $row->service_id;
-			$arrange_data[$row->category_id]['tag_data'][$row->service_id]['service_name'] = $row->service_name;
+			$arrange_data[$row->category_id]['service_data'][$row->service_id]['service_slug'] = $row->service_slug;
+			$arrange_data[$row->category_id]['service_data'][$row->service_id]['service_id'] = $row->service_id;
+			$arrange_data[$row->category_id]['service_data'][$row->service_id]['service_name'] = $row->service_name;
 
 		}
 		
@@ -33,7 +33,7 @@ class MegaMenuController extends CI_Controller {
 		$response_data = array();
 		foreach($arrange_data as $row){
 			$level_two = array();
-			foreach($row['tag_data'] as $row1){
+			foreach($row['service_data'] as $row1){
 				if(!empty($row1['service_id'])){
 					$level_two[] = array(
 						"service_slug"=> $row1['service_slug'],
@@ -47,7 +47,7 @@ class MegaMenuController extends CI_Controller {
 				"category_slug"=> $row['category_slug'],
 				"category_id"=> $row['category_id'],
 				"category_name"=> $row['category_name'],
-				"tag_data"=> $level_two,
+				"service_data"=> $level_two,
 			);
 		}
 

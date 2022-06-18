@@ -26,7 +26,7 @@ class VendorMasterController extends CI_Controller {
 		 WHERE 1=1 $query_string  AND vm.status='1'")->result();
 
 		
-		$tag_data = array();
+		$service_data = array();
 		$tag_query_results = "";
 			if($request['filter_type'] == "category"){
 				$tag_query_results = $this->db->query("SELECT service_id, service_slug, service_name FROM service_master WHERE category_id=(SELECT category_id FROM category_master where category_slug='".$request['filter_sagment_two']."') AND status='1'")->result();
@@ -40,11 +40,11 @@ class VendorMasterController extends CI_Controller {
 						"service_slug" => $row->service_slug,
 						"service_name" => $row->service_name,
 					);
-					$tag_data[] = array_map("strval",$collect);
+					$service_data[] = array_map("strval",$collect);
 				}
-				$response['data']['tag_data'] = $tag_data;
+				$response['data']['service_data'] = $service_data;
 			} else {
-				$response['data']['tag_data'] = array();
+				$response['data']['service_data'] = array();
 			}
 			
 
@@ -156,9 +156,9 @@ class VendorMasterController extends CI_Controller {
 			"city_name" => $verndor_detail->city_name,
 		);
 
-		$tag_data = array();
+		$service_data = array();
 		foreach($category_result as $row){
-			$tag_data[] = array(
+			$service_data[] = array(
 				"service_slug" => $row->service_slug,
 				"service_name" => $row->service_name
 			);
@@ -167,7 +167,7 @@ class VendorMasterController extends CI_Controller {
 		$response['status'] = 1;
 		$response['message'] = DATA_GET_SUCCESSFULLY;
 		$response['data']['vendor_data'] = $vendor_data;
-		$response['data']['tag_data'] = $tag_data;
+		$response['data']['service_data'] = $service_data;
 
 		$this->common->response($response);
 	}
