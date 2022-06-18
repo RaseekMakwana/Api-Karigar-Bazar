@@ -35,16 +35,16 @@ class AdvancedSearchController extends CI_Controller {
 			$tag_data = array();
 			$tag_result = "";
 			if($request['filter_type'] == "c"){
-				$tag_result = $this->db->query("SELECT tag_id, tag_slug, tag_name FROM tags_master WHERE category_id='".$get_category_row->category_id."' AND status='1'")->result();
+				$tag_result = $this->db->query("SELECT service_id, service_slug, service_name FROM service_master WHERE category_id='".$get_category_row->category_id."' AND status='1'")->result();
 			} else if($request['filter_type'] == "t"){
-				$tag_result = $this->db->query("SELECT tag_id, tag_slug, tag_name FROM tags_master WHERE category_id IN (SELECT category_id FROM tags_master WHERE tag_slug='".$request['filter_category']."') AND STATUS='1'")->result();
+				$tag_result = $this->db->query("SELECT service_id, service_slug, service_name FROM service_master WHERE category_id IN (SELECT category_id FROM service_master WHERE service_slug='".$request['filter_category']."') AND STATUS='1'")->result();
 			}
 
 			foreach($tag_result as $row){
 				$collect = array(
-					"tag_id" => $row->tag_id,
-					"tag_slug" => $row->tag_slug,
-					"tag_name" => $row->tag_name
+					"service_id" => $row->service_id,
+					"service_slug" => $row->service_slug,
+					"service_name" => $row->service_name
 				);
 				$tag_data[] = array_map("strval",$collect);
 			}

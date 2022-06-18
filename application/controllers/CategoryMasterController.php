@@ -53,10 +53,10 @@ class CategoryMasterController extends CI_Controller {
 	public function get_list_vendor_type_with_category_with_tag() {
 		$request = $this->input->post();
 
-		$query_results = $this->db->query("SELECT vtm.vendor_type_slug,vtm.vendor_type_id,vtm.`vendor_type_name`,vtm.`picture_thumb`,cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`tag_slug`,scm.`tag_id`,scm.`tag_name`
+		$query_results = $this->db->query("SELECT vtm.vendor_type_slug,vtm.vendor_type_id,vtm.`vendor_type_name`,vtm.`picture_thumb`,cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`service_slug`,scm.`service_id`,scm.`service_name`
 		FROM vendor_type_master AS vtm 
 		LEFT JOIN category_master AS cm ON cm.`vendor_type_id`=vtm.`vendor_type_id` AND cm.`status`='1'
-		LEFT JOIN `tags_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
+		LEFT JOIN `service_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
 		WHERE vtm.`status`='1'")->result();
 
 		$arrange_data = array();
@@ -68,9 +68,9 @@ class CategoryMasterController extends CI_Controller {
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_slug'] = $row->category_slug;
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_id'] = $row->category_id;
 			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['category_name'] = $row->category_name;
-			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
-			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->tag_id]['tag_id'] = $row->tag_id;
-			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->tag_id]['tag_name'] = $row->tag_name;
+			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->service_id]['service_slug'] = $row->service_slug;
+			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->service_id]['service_id'] = $row->service_id;
+			$arrange_data[$row->vendor_type_id]['categories_data'][$row->category_id]['tag_data'][$row->service_id]['service_name'] = $row->service_name;
 
 		}
 		
@@ -82,11 +82,11 @@ class CategoryMasterController extends CI_Controller {
 			foreach($row['categories_data'] as $row1){
 				$level_two = array();
 				foreach($row1['tag_data'] as $row2){
-					if(!empty($row2['tag_id'])){
+					if(!empty($row2['service_id'])){
 						$level_two[] = array(
-							"tag_slug"=> $row2['tag_slug'],
-							"tag_id"=> $row2['tag_id'],
-							"tag_name"=> $row2['tag_name'],
+							"service_slug"=> $row2['service_slug'],
+							"service_id"=> $row2['service_id'],
+							"service_name"=> $row2['service_name'],
 						);
 					}
 				}
@@ -121,9 +121,9 @@ class CategoryMasterController extends CI_Controller {
 
 		$this->common->field_required(array('vendor_type_id'),$request);
 
-		$query_results = $this->db->query("SELECT cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`tag_slug`,scm.`tag_id`,scm.`tag_name`
+		$query_results = $this->db->query("SELECT cm.`category_slug`,cm.`category_id`,cm.`category_name`,scm.`service_slug`,scm.`service_id`,scm.`service_name`
 		FROM category_master AS cm 
-		LEFT JOIN `tags_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
+		LEFT JOIN `service_master` AS scm ON scm.`category_id`=cm.`category_id` AND scm.`status`='1'
 		WHERE cm.vendor_type_id='".$request['vendor_type_id']."' AND cm.`status`='1'")->result();
 
 		$arrange_data = array();
@@ -131,9 +131,9 @@ class CategoryMasterController extends CI_Controller {
 			$arrange_data[$row->category_id]['category_slug'] = $row->category_slug;
 			$arrange_data[$row->category_id]['category_id'] = $row->category_id;
 			$arrange_data[$row->category_id]['category_name'] = $row->category_name;
-			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_slug'] = $row->tag_slug;
-			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_id'] = $row->tag_id;
-			$arrange_data[$row->category_id]['tag_data'][$row->tag_id]['tag_name'] = $row->tag_name;
+			$arrange_data[$row->category_id]['tag_data'][$row->service_id]['service_slug'] = $row->service_slug;
+			$arrange_data[$row->category_id]['tag_data'][$row->service_id]['service_id'] = $row->service_id;
+			$arrange_data[$row->category_id]['tag_data'][$row->service_id]['service_name'] = $row->service_name;
 
 		}
 		
@@ -142,11 +142,11 @@ class CategoryMasterController extends CI_Controller {
 		foreach($arrange_data as $row){
 			$level_two = array();
 			foreach($row['tag_data'] as $row1){
-				if(!empty($row1['tag_id'])){
+				if(!empty($row1['service_id'])){
 					$level_two[] = array(
-						"tag_slug"=> $row1['tag_slug'],
-						"tag_id"=> $row1['tag_id'],
-						"tag_name"=> $row1['tag_name'],
+						"service_slug"=> $row1['service_slug'],
+						"service_id"=> $row1['service_id'],
+						"service_name"=> $row1['service_name'],
 					);
 				}
 			}
@@ -178,14 +178,14 @@ class CategoryMasterController extends CI_Controller {
 		} else {
 			$query_string .= " category_id='".$request['keyword']."'";
 		}
-		$query_results = $this->db->query("SELECT * FROM tags_master WHERE category_id in (SELECT category_id FROM category_master where $query_string AND status='1') AND status='1'")->result();
+		$query_results = $this->db->query("SELECT * FROM service_master WHERE category_id in (SELECT category_id FROM category_master where $query_string AND status='1') AND status='1'")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
 			$collect = array(
-				"tag_slug" => $row->tag_slug,
-				"tag_id" => $row->tag_id,
-				"tag_name" => $row->tag_name,
+				"service_slug" => $row->service_slug,
+				"service_id" => $row->service_id,
+				"service_name" => $row->service_name,
 				"picture_thumb" => $row->picture_thumb
 			);
 			$response_data[] = array_map("strval",$collect);
@@ -262,7 +262,7 @@ class CategoryMasterController extends CI_Controller {
 
 		$query_results = $this->db->query("(SELECT category_id AS search_id, category_slug AS search_slug, category_name AS search_name, 'category' AS `search_type` FROM category_master WHERE category_name LIKE '%".$request['keyword']."%' AND status='1' )
 											UNION 
-											(SELECT tag_id AS search_id, tag_slug AS search_slug, tag_name AS search_name, 'tag' AS `search_type` FROM tags_master WHERE tag_name LIKE '%".$request['keyword']."%' AND status='1' )")->result();
+											(SELECT service_id AS search_id, service_slug AS search_slug, service_name AS search_name, 'tag' AS `search_type` FROM service_master WHERE service_name LIKE '%".$request['keyword']."%' AND status='1' )")->result();
 
 		$response_data = array();
 		foreach($query_results as $row){
