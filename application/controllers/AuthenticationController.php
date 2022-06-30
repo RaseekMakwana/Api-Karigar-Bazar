@@ -60,7 +60,7 @@ class AuthenticationController extends CI_Controller {
 		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
 
 		if(empty($check_user_exist->number_of_records)){
-			$user_id = time().uniqid();
+			$user_id = md5(time().$request['mobile_no']);
 			$insertData = array(
 				"user_id" => $user_id,
 				"vendor_name" => $request['contact_person_name'],
@@ -110,6 +110,7 @@ class AuthenticationController extends CI_Controller {
 				"state" => $request['state'],
 				"city" => $request['city'],
 				"area" => $request['area'],
+				"pincode" => $request['pincode'],
 				"password" => $request['password']
 			);
 			$this->db->insert('data_vendor_master',$insertData);
