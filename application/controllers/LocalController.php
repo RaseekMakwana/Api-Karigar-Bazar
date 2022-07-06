@@ -8,7 +8,7 @@ class ExtraController extends CI_Controller {
 		// $this->common->header_authentication();
 	}
 
-	public function import_lat_long(){
+	public function import_lat_long(){ 
 
 		$query_results = $this->db->query("SELECT city_id, city_name, state_name FROM cities_master AS cm, states_master AS sm WHERE sm.`state_id`=cm.`state_id` AND cm.latitude='' ORDER BY city_id asc")->result();
 		foreach($query_results as $row){
