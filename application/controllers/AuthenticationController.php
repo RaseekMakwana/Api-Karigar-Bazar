@@ -109,7 +109,7 @@ class AuthenticationController extends CI_Controller {
 				"city" => $request['city'],
 				"area" => $request['area'],
 				"pincode" => $request['pincode'],
-				"password" => $request['password']
+				"password" => md5($request['password'])
 			);
 			$this->db->insert('data_vendor_master',$insertData);
 
