@@ -99,9 +99,7 @@ class AuthenticationController extends CI_Controller {
 		$check_user_exist = $this->db->query("SELECT count(*) as number_of_records FROM login_master WHERE mobile='".$request['mobile_no']."' AND status='1'")->row();
 
 		if(empty($check_user_exist->number_of_records)){
-			$user_id = time().uniqid();
 			$insertData = array(
-				"user_id" => $user_id,
 				"vendor_name" => $request['contact_person_name'],
 				"business_name" => $request['business_name'],
 				"mobile" => $request['mobile_no'],
